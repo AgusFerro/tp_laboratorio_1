@@ -32,10 +32,17 @@ int main(void)
 			}
 			break;
 		case 2:
-			/*//if(getNumero(int *numeroA)==0){}
-			//else{}
+			if(getNumero(&numeroB)==0)
+			{
+				printf("Operando 1: %d",numeroA);
+			}
+			else
+			{
+				reintentos = 0;
+				printf("Finalizado por cantidad de reintentos agotada");
+			}
 			break;
-		case 3:
+	/*	case 3:
 			//funcion
 			break;
 		case 4:
@@ -45,9 +52,10 @@ int main(void)
 			//funcion
 			break;  */
 		default:
-			&reintentos = reintentos - 1;
+			reintentos--;
 			printf("Opcion incorrecta, cantidad de reintentos: %d",reintentos);
 		}
 
-	}while(opcion != 5 || reintentos != 0);
+	}while(opcion != 5 && reintentos > 0);
+	printf("Finalizado");
 }

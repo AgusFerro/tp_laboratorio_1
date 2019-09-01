@@ -21,13 +21,13 @@ int getNumero(int *pNumero)
 	int reintentos = 3;
 	int numero = *pNumero;
 
-	printf("\nIngrese numero 1");
+	printf("\nIngrese numero 1 \n");
 	__fpurge(stdin);
 	scanf("%d",&numero);
 	while(!(numero <= maximo && numero >= minimo) && reintentos > 0)
 	{
-		reintentos = &reintentos - 1;
-		printf("Reingrese el numero, cantidad de reintentos: %d",reintentos);
+		reintentos--;
+		printf("Reingrese el numero, cantidad de reintentos: %d \n",reintentos);
 		__fpurge(stdin);
 		scanf("%d",&numero);
 	}
