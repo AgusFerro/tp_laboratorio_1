@@ -8,5 +8,6 @@
 #define MSG5_Salir "Salir"
 
 int imprimeMenu(void);
+int getNumero(int *pNumero);
 
 #endif /* UTN_TP_H_ */

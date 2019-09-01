@@ -3,17 +3,15 @@
 #include <stdio_ext.h>
 #include "utn-tp.h"
 
-int opcion;
-int reintentos = 3;
-int numeroA;
-int numeroB;
-int resultado;
-int factoreoA;
-int factoreoB;
-
 int main(void)
 {
-
+	int opcion;
+	int reintentos = 3;
+	int numeroA;
+	int numeroB;
+	int resultado;
+	int factoreoA;
+	int factoreoB;
 
 	imprimeMenu();
 	do
@@ -23,12 +21,19 @@ int main(void)
 		switch(opcion)
 		{
 		case 1:
-		/*	if(getNumero()==0){}
-			else{} */
-
+			if(getNumero(&numeroA)==0)
+			{
+				printf("Operando 1: %d",numeroA);
+			}
+			else
+			{
+				reintentos = 0;
+				printf("Finalizado por cantidad de reintentos agotada");
+			}
 			break;
 		case 2:
-			//funcion
+			/*//if(getNumero(int *numeroA)==0){}
+			//else{}
 			break;
 		case 3:
 			//funcion
@@ -38,8 +43,11 @@ int main(void)
 			break;
 		case 5:
 			//funcion
-			break;
+			break;  */
+		default:
+			&reintentos = reintentos - 1;
+			printf("Opcion incorrecta, cantidad de reintentos: %d",reintentos);
 		}
 
-	}while(opcion != 5 || reintentos == 0);
+	}while(opcion != 5 || reintentos != 0);
 }

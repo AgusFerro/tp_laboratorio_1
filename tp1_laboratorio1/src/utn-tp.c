@@ -1,4 +1,4 @@
-
+// >  <
 #include <stdio_ext.h>
 #include "utn-tp.h"
 
@@ -9,7 +9,36 @@ int imprimeMenu(void)
 	printf("\n"MSG3_Calculos);
 	printf("\n"MSG4_InformarResultados);
 	printf("\n"MSG5_Salir);
+	printf("\n");
 
 	return 0;
+}
+
+int getNumero(int *pNumero)
+{
+	int maximo = 99;
+	int minimo = 1;
+	int reintentos = 3;
+	int numero = *pNumero;
+
+	printf("\nIngrese numero 1");
+	__fpurge(stdin);
+	scanf("%d",&numero);
+	while(!(numero <= maximo && numero >= minimo) && reintentos > 0)
+	{
+		reintentos = &reintentos - 1;
+		printf("Reingrese el numero, cantidad de reintentos: %d",reintentos);
+		__fpurge(stdin);
+		scanf("%d",&numero);
+	}
+	if(reintentos == 0)
+	{
+		return -1;
+	}
+	else
+	{
+		*pNumero = numero;
+		return 0;
+	}
 }
 
