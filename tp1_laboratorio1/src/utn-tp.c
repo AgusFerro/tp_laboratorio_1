@@ -16,29 +16,67 @@ int imprimeMenu(void)
 
 int getNumero(int *pNumero)
 {
-	int maximo = 99;
-	int minimo = 1;
-	int reintentos = 3;
 	int numero = *pNumero;
 
 	printf("\nIngrese numero 1 \n");
 	__fpurge(stdin);
 	scanf("%d",&numero);
-	while(!(numero <= maximo && numero >= minimo) && reintentos > 0)
-	{
-		reintentos--;
-		printf("Reingrese el numero, cantidad de reintentos: %d \n",reintentos);
-		__fpurge(stdin);
-		scanf("%d",&numero);
-	}
-	if(reintentos == 0)
-	{
-		return -1;
-	}
-	else
-	{
-		*pNumero = numero;
-		return 0;
-	}
+	*pNumero = numero;
+	return 0;
 }
 
+int realizarCalculos(int numeroA,int numeroB,int* resultado,int* factoreoA,int* factoreoB)
+{
+	char opcion;
+
+	imprimeMenuCalculos();
+
+	__fpurge(stdin);
+	scanf("%c",&opcion);
+	switch(opcion)
+	{
+		case 'a':
+			//sumaDosNumeros(int numeroA,int numeroB,int* resultado);
+			break;
+		case 'b':
+			//restaDosNumeros(int numeroA,int numeroB,int* resultado);
+			break;
+		case 'c':
+			//multiplicaDosNumeros(int numeroA,int numeroB,int* resultado);
+			break;
+		case 'd':
+			//divideDosNumeros(int numeroA,int numeroB,int* resultado);
+				/*if(flag3 == 1)
+				{
+					informarResultados();
+				}
+				else
+				{
+					printf("No se pueden informar el resultado si no se realizaron los calculos previamente \n");
+				}*/
+			break;
+		case 'e':
+			//factorialDeDosNumeros(int numeroA,int numeroB,int* factoreoA,int* factoreoB);
+			break;
+		default:
+			printf("Opcion incorrecta");
+			break;
+			}
+
+	return 0;
+}
+int sumaDosNumeros(int numeroA,int numeroB,int* resultado)
+{
+}
+int restaDosNumeros(int numeroA,int numeroB,int* resultado)
+{
+}
+int multiplicaDosNumeros(int numeroA,int numeroB,int* resultado)
+{
+}
+int divideDosNumeros(int numeroA,int numeroB,int* resultado)
+{
+}
+int factorialDeDosNumeros(int numeroA,int numeroB,int* factoreoA,int* factoreoB)
+{
+}

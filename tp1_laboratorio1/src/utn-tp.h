@@ -9,5 +9,13 @@
 
 int imprimeMenu(void);
 int getNumero(int *pNumero);
+int realizarCalculos(int numeroA,int numeroB,int* resultado,int* factoreoA,int* factoreoB);
+int informarResultados(void);
+int imprimeMenuCalculos(void);
+int sumaDosNumeros(int numeroA,int numeroB,int* resultado);
+int restaDosNumeros(int numeroA,int numeroB,int* resultado);
+int multiplicaDosNumeros(int numeroA,int numeroB,int* resultado);
+int divideDosNumeros(int numeroA,int numeroB,int* resultado);
+int factorialDeDosNumeros(int numeroA,int numeroB,int* factoreoA,int* factoreoB);
 
 #endif /* UTN_TP_H_ */
