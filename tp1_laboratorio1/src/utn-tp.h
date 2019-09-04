@@ -11,22 +11,23 @@
 #define MSGb_MenuCalculoResta "b.Resta dos numeros (%d - %d)"
 #define MSGc_MenuCalculoMulti "c.Multiplica dos numeros (%d * %d)"
 #define MSGd_MenuCalculoDivi "d.Divide dos numeros (%d / %d)"
-#define MSGe_MenuCalculoFacto "e.Factorial de dos numeros (! %d ! %d)"
+#define MSGe_MenuCalculoFacto "e.Factorial de dos numeros (%d! y %d!)"
 
 int Calculadora(void);
+//
 int imprimeMenu(int numeroA, int numeroB);
 int imprimeMenuCalculos(int numeroA,int numeroB);
 int getNumero(int *pNumero);
 int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
-					int* pResulMulti,int* pResulDivi,int* pFactoreoA,int* pFactoreoB);
+					int* pResulMulti,float* pResulDivi,int* pFactoreoA,int* pFactoreoB);
 int sumaDosNumeros(int numeroA,int numeroB,int* pResultado);
 int restaDosNumeros(int numeroA,int numeroB,int* pResultado);
 int multiplicaDosNumeros(int numeroA,int numeroB,int* pResultado);
-int divideDosNumeros(int numeroA,int numeroB,int* pResultado);
+int divideDosNumeros(int numeroA,int numeroB,float* pResultado);
 int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreoB);
 int factorialDelNumero(int numero,int* pFactoreo);
 int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
-						int resulMulti,int resulDivi,int factoreoA,int factoreoB);
+						int resulMulti,float resulDivi,int factoreoA,int factoreoB);
 
 
 #endif /* UTN_TP_H_ */

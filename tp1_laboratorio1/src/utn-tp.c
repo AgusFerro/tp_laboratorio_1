@@ -14,7 +14,7 @@ int Calculadora(void)
 	int resultadoSuma;
 	int resultadoResta;
 	int resultadoMulti;
-	int resultadoDivi;
+	float resultadoDivi;
 	int factoreoA;
 	int factoreoB;
 
@@ -117,12 +117,12 @@ int getNumero(int *pNumero)
 }
 
 int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
-					int* pResulMulti,int* pResulDivi,int* pFactoreoA,int* pFactoreoB)
+					int* pResulMulti,float* pResulDivi,int* pFactoreoA,int* pFactoreoB)
 {
 	int resultadoSuma = *pResulSuma;
 	int resultadoResta = *pResulResta;
 	int resultadoMulti = *pResulMulti;
-	int resultadoDivi = *pResulDivi;
+	float resultadoDivi = *pResulDivi;
 	int factoreoA = *pFactoreoA;
 	int factoreoB = *pFactoreoB;
 
@@ -169,7 +169,7 @@ int multiplicaDosNumeros(int numeroA,int numeroB,int* pResultado)
 	return 0;
 }
 
-int divideDosNumeros(int numeroA,int numeroB,int* pResultado)
+int divideDosNumeros(int numeroA,int numeroB,float* pResultado)
 {
 	if(numeroA == 0 || numeroB == 0)
 	{
@@ -177,7 +177,7 @@ int divideDosNumeros(int numeroA,int numeroB,int* pResultado)
 	}
 	else
 	{
-		int resultado = numeroA / numeroB;
+		float resultado = numeroA / numeroB;
 		*pResultado = resultado;
 		return 0;
 	}
@@ -196,6 +196,7 @@ int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreo
 	else
 	{
 		factorialDelNumero(valorA,&factoreoA);
+		*pFactoreoA = factoreoA;
 	}
 
 	if(numeroB <= 0)
@@ -205,6 +206,7 @@ int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreo
 	else
 	{
 		factorialDelNumero(valorB,&factoreoB);
+		*pFactoreoB = factoreoB;
 	}
 	return 0;
 }
@@ -212,20 +214,22 @@ int factorialDelNumero(int numero,int* pFactoreo)
 {
 	int factorNumero = 1;
 	int factorialDeNumero;
+	int factorial = *pFactoreo;
 	for (factorialDeNumero = 1; factorialDeNumero <= numero; factorialDeNumero++)
 	{
 		factorNumero = factorNumero * factorialDeNumero;
 	}
-	*pFactoreo = factorNumero;
+	factorial = factorNumero;
+	*pFactoreo = factorial;
 	return 0;
 }
 int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
-						int resulMulti,int resulDivi,int factoreoA,int factoreoB)
+						int resulMulti,float resulDivi,int factoreoA,int factoreoB)
 {
 	printf("El resultado de %d+%d es: %d \n",numeroA,numeroB,resulSuma);
 	printf("El resultado de %d-%d es: %d \n",numeroA,numeroB,resulResta);
 	printf("El resultado de %d*%d es: %d \n",numeroA,numeroB,resulMulti);
-	printf("El resultado de %d/%d es: %d \n",numeroA,numeroB,resulDivi);
+	printf("El resultado de %d/%d es: %f \n",numeroA,numeroB,resulDivi);
 	printf("El resultado de %d! es: %d, y el de %d es: %d \n",numeroA,factoreoA,numeroB,factoreoB);
 
 	return 0;
