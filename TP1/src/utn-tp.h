@@ -14,20 +14,42 @@
 #define MSGe_MenuCalculoFacto "e.Factorial de dos numeros (%d! y %d!)"
 
 int Calculadora(void);
-//
+// funcion principal
+
 int imprimeMenu(int numeroA, int numeroB);
+// funcion que imprime el primer menu de opciones
+
 int imprimeMenuCalculos(int numeroA,int numeroB);
+// funcion que imprime
+
 int getNumero(int *pNumero);
+// funcion que obtiene el numero del usuario
+
 int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
 					int* pResulMulti,float* pResulDivi,int* pFactoreoA,int* pFactoreoB);
+// funcion que realiza los calculos correspondientes para la calculadora
+
 int sumaDosNumeros(int numeroA,int numeroB,int* pResultado);
+// funcion que suma dos numeros
+
 int restaDosNumeros(int numeroA,int numeroB,int* pResultado);
+//funcion que resta dos numeros
+
 int multiplicaDosNumeros(int numeroA,int numeroB,int* pResultado);
+// funcion que multiplica dos numeros
+
 int divideDosNumeros(int numeroA,int numeroB,float* pResultado);
+// funcion que divide dos numeros
+
 int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreoB);
+//funcion que ejecuta la funcion "factorialDelNumero()" con dos valores distintos
+
 int factorialDelNumero(int numero,int* pFactoreo);
+//funcion que obtiene el factorial de un numero
+
 int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
 						int resulMulti,float resulDivi,int factoreoA,int factoreoB);
+//funcion que informa el resultado de todos los resultados
 
 
 #endif /* UTN_TP_H_ */
