@@ -26,7 +26,7 @@ int getNumero(int *pNumero);
 // funcion que obtiene el numero del usuario
 
 int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
-					int* pResulMulti,float* pResulDivi,int* pFactoreoA,int* pFactoreoB);
+					int* pResulMulti,float* pResulDivi,long long *pFactoreoA,long long *pFactoreoB);
 // funcion que realiza los calculos correspondientes para la calculadora
 
 int sumaDosNumeros(int numeroA,int numeroB,int* pResultado);
@@ -41,14 +41,14 @@ int multiplicaDosNumeros(int numeroA,int numeroB,int* pResultado);
 int divideDosNumeros(int numeroA,int numeroB,float* pResultado);
 // funcion que divide dos numeros
 
-int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreoB);
+int factorialDeDosNumeros(int numeroA,int numeroB,long long *pFactoreoA,long long *pFactoreoB);
 //funcion que ejecuta la funcion "factorialDelNumero()" con dos valores distintos
 
-int factorialDelNumero(int numero,int* pFactoreo);
+int factorialDelNumero(int numero,long long *pFactoreo);
 //funcion que obtiene el factorial de un numero
 
 int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
-						int resulMulti,float resulDivi,int factoreoA,int factoreoB);
+						int resulMulti,float resulDivi,long long factoreoA,long long factoreoB);
 //funcion que informa el resultado de todos los resultados
 
 

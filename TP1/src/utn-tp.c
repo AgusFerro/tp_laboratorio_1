@@ -15,8 +15,8 @@ int Calculadora(void)
 	int resultadoResta;
 	int resultadoMulti;
 	float resultadoDivi;
-	int factoreoA;
-	int factoreoB;
+	long long factoreoA;
+	long long factoreoB;
 
 	imprimeMenu(numeroA,numeroB);
 	do
@@ -36,7 +36,7 @@ int Calculadora(void)
 			flag2++;
 			break;
 		case 3:
-			if(flag1 == 1 && flag2 == 1)
+			if(flag1 > 0 && flag2 > 0)
 			{
 				realizarCalculos(numeroA,numeroB,&resultadoSuma,&resultadoResta
 							,&resultadoMulti,&resultadoDivi,&factoreoA,&factoreoB);
@@ -50,7 +50,7 @@ int Calculadora(void)
 			}
 			break;
 		case 4:
-			if(flag3 == 1)
+			if(flag3 > 0)
 			{
 				informarResultados(numeroA,numeroB,resultadoSuma,resultadoResta
 							,resultadoMulti,resultadoDivi,factoreoA,factoreoB);
@@ -73,7 +73,7 @@ int Calculadora(void)
 		}
 
 	}while(opcion != 5 && reintentos > 1);
-	if(reintentos == 0)
+	if(reintentos <= 1)
 	{
 		printf("Cantidad de reintentos agotada\n");
 	}
@@ -117,14 +117,14 @@ int getNumero(int *pNumero)
 }
 
 int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
-					int* pResulMulti,float* pResulDivi,int* pFactoreoA,int* pFactoreoB)
+					int* pResulMulti,float* pResulDivi,long long *pFactoreoA,long long *pFactoreoB)
 {
 	int resultadoSuma = *pResulSuma;
 	int resultadoResta = *pResulResta;
 	int resultadoMulti = *pResulMulti;
 	float resultadoDivi = *pResulDivi;
-	int factoreoA = *pFactoreoA;
-	int factoreoB = *pFactoreoB;
+	long long factoreoA = *pFactoreoA;
+	long long factoreoB = *pFactoreoB;
 
 	sumaDosNumeros(numeroA,numeroB,&resultadoSuma);
 	restaDosNumeros(numeroA,numeroB,&resultadoResta);
@@ -183,13 +183,13 @@ int divideDosNumeros(int numeroA,int numeroB,float* pResultado)
 	}
 }
 
-int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreoB)
+int factorialDeDosNumeros(int numeroA,int numeroB,long long *pFactoreoA,long long *pFactoreoB)
 {
 	int valorA = numeroA;
 	int valorB = numeroB;
-	int factoreoA = *pFactoreoA;
-	int factoreoB = *pFactoreoB;
-	if(numeroA <= 0)
+	long long factoreoA = *pFactoreoA;
+	long long factoreoB = *pFactoreoB;
+	if(numeroA < 0)
 	{
 		printf("No se puede obtener el factorial de este numero: %d\n",numeroA);
 	}
@@ -199,7 +199,7 @@ int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreo
 		*pFactoreoA = factoreoA;
 	}
 
-	if(numeroB <= 0)
+	if(numeroB < 0)
 	{
 		printf("No se puede obtener el factorial de este numero: %d\n",numeroB);
 	}
@@ -210,27 +210,42 @@ int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreo
 	}
 	return 0;
 }
-int factorialDelNumero(int numero,int* pFactoreo)
+int factorialDelNumero(int numero,long long *pFactoreo)
 {
-	int factorNumero = 1;
+	long long factorNumero = 1;
 	int factorialDeNumero;
-	int factorial = *pFactoreo;
-	for (factorialDeNumero = 1; factorialDeNumero <= numero; factorialDeNumero++)
+	long long factorial = *pFactoreo;
+	if(numero >= 0)
 	{
-		factorNumero = factorNumero * factorialDeNumero;
+		for (factorialDeNumero = 1; factorialDeNumero <= numero; factorialDeNumero++)
+			{
+				factorNumero = factorNumero * factorialDeNumero;
+			}
+		factorial = factorNumero;
+		*pFactoreo = factorial;
 	}
-	factorial = factorNumero;
-	*pFactoreo = factorial;
+	else
+	{
+		*pFactoreo = 1;
+	}
+
 	return 0;
 }
 int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
-						int resulMulti,float resulDivi,int factoreoA,int factoreoB)
+						int resulMulti,float resulDivi,long long factoreoA,long long factoreoB)
 {
 	printf("El resultado de %d+%d es: %d \n",numeroA,numeroB,resulSuma);
 	printf("El resultado de %d-%d es: %d \n",numeroA,numeroB,resulResta);
 	printf("El resultado de %d*%d es: %d \n",numeroA,numeroB,resulMulti);
-	printf("El resultado de %d/%d es: %f \n",numeroA,numeroB,resulDivi);
-	printf("El resultado de %d! es: %d, y el de %d es: %d \n",numeroA,factoreoA,numeroB,factoreoB);
+	if(numeroB == 0)
+	{
+		printf("El resultado de %d/%d es: Error \n",numeroA,numeroB);
+	}
+	else
+	{
+		printf("El resultado de %d/%d es: %3.2f \n",numeroA,numeroB,resulDivi);
+	}
+	printf("El resultado de %d! es: %lld, y el de %d es: %lld \n",numeroA,factoreoA,numeroB,factoreoB);
 
 	return 0;
 }
