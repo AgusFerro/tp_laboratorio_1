@@ -40,6 +40,7 @@ int Calculadora(void)
 			{
 				realizarCalculos(numeroA,numeroB,&resultadoSuma,&resultadoResta
 							,&resultadoMulti,&resultadoDivi,&factoreoA,&factoreoB);
+				imprimeMenu(numeroA,numeroB);
 				flag3++;
 			}
 			else
@@ -48,23 +49,25 @@ int Calculadora(void)
 				imprimeMenu(numeroA,numeroB);
 			}
 			break;
-		/*case 4:
+		case 4:
 			if(flag3 == 1)
 			{
-				informarResultados();
+				informarResultados(numeroA,numeroB,resultadoSuma,resultadoResta
+							,resultadoMulti,resultadoDivi,factoreoA,factoreoB);
+				imprimeMenu(numeroA,numeroB);
 			}
 			else
 			{
 				printf("No se pueden informar el resultado si no se realizaron los calculos previamente \n");
 				imprimeMenu(numeroA,numeroB);
 			}
-			break;*/
+			break;
 		case 5:
 			printf("Hasta pronto!");
 			break;
 		default:
 			reintentos--;
-			printf("Opcion incorrecta, cantidad de reintentos: %d",reintentos);
+			printf("Opcion incorrecta, cantidad de reintentos: %d \n",reintentos);
 			imprimeMenu(numeroA,numeroB);
 			break;
 		}
@@ -72,7 +75,7 @@ int Calculadora(void)
 	}while(opcion != 5 && reintentos > 1);
 	if(reintentos == 0)
 	{
-		printf("Cantidad de reintentos agotada");
+		printf("Cantidad de reintentos agotada\n");
 	}
 	return 0;
 }
@@ -82,6 +85,7 @@ int imprimeMenu(int numeroA, int numeroB)
 	printf("\n"MSG1_IngreseOperando1,numeroA);
 	printf("\n"MSG2_IngreseOperando2,numeroB);
 	printf("\n"MSG3_Calculos);
+	imprimeMenuCalculos(numeroA,numeroB);
 	printf("\n"MSG4_InformarResultados);
 	printf("\n"MSG5_Salir);
 	printf("\n");
@@ -115,7 +119,6 @@ int getNumero(int *pNumero)
 int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
 					int* pResulMulti,int* pResulDivi,int* pFactoreoA,int* pFactoreoB)
 {
-	char opcion;
 	int resultadoSuma = *pResulSuma;
 	int resultadoResta = *pResulResta;
 	int resultadoMulti = *pResulMulti;
@@ -123,34 +126,21 @@ int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
 	int factoreoA = *pFactoreoA;
 	int factoreoB = *pFactoreoB;
 
-	imprimeMenuCalculos(numeroA,numeroB);
-
-	__fpurge(stdin);
-	scanf("%c",&opcion);
-	switch(opcion)
+	sumaDosNumeros(numeroA,numeroB,&resultadoSuma);
+	restaDosNumeros(numeroA,numeroB,&resultadoResta);
+	multiplicaDosNumeros(numeroA,numeroB,&resultadoMulti);
+	if(divideDosNumeros(numeroA,numeroB,&resultadoDivi) == -1)
 	{
-		case 'a':
-			sumaDosNumeros(numeroA,numeroB,&resultadoSuma);
-			break;
-		case 'b':
-			restaDosNumeros(numeroA,numeroB,&resultadoResta);
-			break;
-		case 'c':
-			multiplicaDosNumeros(numeroA,numeroB,&resultadoMulti);
-			break;
-		case 'd':
-			if(divideDosNumeros(numeroA,numeroB,&resultadoDivi) == -1)
-			{
-				printf("No se puede divir por cero, o dividir al cero. Por favor, ingrese otro numero");
-			}
-			break;
-		case 'e':
-			factorialDeDosNumeros(numeroA,numeroB,&factoreoA,&factoreoB);
-			break;
-		default:
-			printf("Opcion incorrecta");
-			break;
-			}
+		printf("No se puede divir por cero, o dividir al cero. Por favor, ingrese otro numero\n");
+	}
+	factorialDeDosNumeros(numeroA,numeroB,&factoreoA,&factoreoB);
+
+	*pResulSuma = resultadoSuma;
+	*pResulResta = resultadoResta;
+	*pResulMulti = resultadoMulti;
+	*pResulDivi = resultadoDivi;
+	*pFactoreoA = factoreoA;
+	*pFactoreoB = factoreoB;
 
 	return 0;
 }
@@ -195,10 +185,48 @@ int divideDosNumeros(int numeroA,int numeroB,int* pResultado)
 
 int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreoB)
 {
-	factorialDelNumero(numeroA,&pFactoreoA)
-	*pFactoreoA = factoreoA;
+	int valorA = numeroA;
+	int valorB = numeroB;
+	int factoreoA = *pFactoreoA;
+	int factoreoB = *pFactoreoB;
+	if(numeroA <= 0)
+	{
+		printf("No se puede obtener el factorial de este numero: %d\n",numeroA);
+	}
+	else
+	{
+		factorialDelNumero(valorA,&factoreoA);
+	}
 
-	factorialDelNumero(numeroB,&pFactoreoB)
-	*pFactoreoB = factoreoB;
+	if(numeroB <= 0)
+	{
+		printf("No se puede obtener el factorial de este numero: %d\n",numeroB);
+	}
+	else
+	{
+		factorialDelNumero(valorB,&factoreoB);
+	}
+	return 0;
+}
+int factorialDelNumero(int numero,int* pFactoreo)
+{
+	int factorNumero = 1;
+	int factorialDeNumero;
+	for (factorialDeNumero = 1; factorialDeNumero <= numero; factorialDeNumero++)
+	{
+		factorNumero = factorNumero * factorialDeNumero;
+	}
+	*pFactoreo = factorNumero;
+	return 0;
+}
+int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
+						int resulMulti,int resulDivi,int factoreoA,int factoreoB)
+{
+	printf("El resultado de %d+%d es: %d \n",numeroA,numeroB,resulSuma);
+	printf("El resultado de %d-%d es: %d \n",numeroA,numeroB,resulResta);
+	printf("El resultado de %d*%d es: %d \n",numeroA,numeroB,resulMulti);
+	printf("El resultado de %d/%d es: %d \n",numeroA,numeroB,resulDivi);
+	printf("El resultado de %d! es: %d, y el de %d es: %d \n",numeroA,factoreoA,numeroB,factoreoB);
+
 	return 0;
 }

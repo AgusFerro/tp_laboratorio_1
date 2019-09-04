@@ -17,7 +17,7 @@ int Calculadora(void);
 int imprimeMenu(int numeroA, int numeroB);
 int imprimeMenuCalculos(int numeroA,int numeroB);
 int getNumero(int *pNumero);
-int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulresta,
+int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
 					int* pResulMulti,int* pResulDivi,int* pFactoreoA,int* pFactoreoB);
 int sumaDosNumeros(int numeroA,int numeroB,int* pResultado);
 int restaDosNumeros(int numeroA,int numeroB,int* pResultado);
@@ -25,7 +25,8 @@ int multiplicaDosNumeros(int numeroA,int numeroB,int* pResultado);
 int divideDosNumeros(int numeroA,int numeroB,int* pResultado);
 int factorialDeDosNumeros(int numeroA,int numeroB,int* pFactoreoA,int* pFactoreoB);
 int factorialDelNumero(int numero,int* pFactoreo);
-int informarResultados(void);
+int informarResultados(int numeroA,int numeroB,int resulSuma,int resulResta,
+						int resulMulti,int resulDivi,int factoreoA,int factoreoB);
 
 
 #endif /* UTN_TP_H_ */
