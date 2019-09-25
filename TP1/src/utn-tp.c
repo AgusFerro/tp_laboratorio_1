@@ -131,7 +131,7 @@ int realizarCalculos(int numeroA,int numeroB,int* pResulSuma,int* pResulResta,
 	multiplicaDosNumeros(numeroA,numeroB,&resultadoMulti);
 	if(divideDosNumeros(numeroA,numeroB,&resultadoDivi) == -1)
 	{
-		printf("No se puede divir por cero, o dividir al cero. Por favor, ingrese otro numero\n");
+		printf("No se puede divir por cero. Por favor, ingrese otro numero\n");
 	}
 	factorialDeDosNumeros(numeroA,numeroB,&factoreoA,&factoreoB);
 
