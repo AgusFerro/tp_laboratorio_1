@@ -34,7 +34,7 @@ int empleadoBuscarEmpty(Empleado *pArray, int limite, int* posicion)
     return retorno;
 }
 
-int addEmpleado(Empleado *pArray, int limite, int* contadorID)
+int addEmpleados(Empleado *pArray, int limite, int* contadorID)
 {
     int retorno=-1;
     int posicion;
@@ -61,3 +61,40 @@ int addEmpleado(Empleado *pArray, int limite, int* contadorID)
     return retorno;
 }
 
+int removeEmpleados(Empleado *pArray, int limite)
+{
+	int retorno = -1;
+	int ID;
+	if(getInt(&ID,"Ingrese un ID para dar de baja","Error",1,2000,2)==0)
+	{
+		for(int i=0;i<limite;i++)
+		{
+			if(pArray[i].id == id)
+			{
+				pArray[i].isEmpty = 1;
+				retorno = 0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+
+int printEmpleados(Empleado *pArray, int limite)
+{
+	for(int i=0;i<limite;i++)
+	{
+		if(pArray[i].isEmpty != 1)
+		{
+			printf("\n Posicion %d_ ID %d Nombre %s Apellido %s Sueldo %f Sector %d",
+					i,
+					pArray[i].id,
+					pArray[i].nombre,
+					pArray[i].apellido,
+					pArray[i].sueldo,
+					pArray[i].sector);
+		}
+	}
+	printf("\n");
+	return 0;
+}

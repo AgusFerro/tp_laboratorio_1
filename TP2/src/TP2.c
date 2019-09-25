@@ -10,7 +10,7 @@ int main(void)
 {
 	int opcion,submenu,indice,j;
 	int reintentos = 3;
-	int ID = 0;
+	int ID, contadorID = 0, flag1 = 0;
 	Empleado listaEmpleados[cantEmpleados];
 
 	initEmpleados(listaEmpleados,cantEmpleados);
@@ -27,22 +27,7 @@ int main(void)
 			break;
 
 		case 2:
-
-
-			for(int i=0;i<3;i++)
-			{
-				if(vecPersona[i].isEmpty != 0)
-				{
-					printf("\n %d_ Nombre %s Edad %d DNI %d",
-							i,
-							vecPersona[i].nombre,
-							vecPersona[i].edad,
-							vecPersona[i].dni);
-				}
-			}
-			__fpurge(stdin);
-			getInt(&j,"Cual desea dar de baja?","Error",0,2,1);
-			vecPersona[j].isEmpty = 0;
+			removeEmployee(listaEmpleados, cantEmpleados);
 			imprimeMenu();
 			break;
 
@@ -80,20 +65,7 @@ int main(void)
 			break;
 
 		case 4:
-
-			for(int i=0;i<3;i++)
-			{
-				if(vecPersona[i].isEmpty != 0)
-				{
-					printf("\n %d_ Nombre %s Edad %d DNI %d",
-							i,
-							vecPersona[i].nombre,
-							vecPersona[i].edad,
-							vecPersona[i].dni);
-				}
-			}
-			printf("\n");
-
+			printEmployees(listaEmpleados, cantEmpleados);
 			break;
 
 		case 5:
@@ -131,7 +103,7 @@ int main(void)
 	}
 
 
-int imprimeMenu()
+void imprimeMenu()
 {
 	printf("\n1.Alta");
 	printf("\n2.Baja");

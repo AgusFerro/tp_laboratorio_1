@@ -27,8 +27,10 @@ typedef struct
 
 int initEmpleados(Empleado *pArray , int limite);
 int addEmpleados(Empleado *pArray, int limite,int id, char *nombre, char *apellido, float suledo,int sector);
-int findEmployeeById(Empleado pArray, int len,int id);
-int removeEmployee(Empleado *pArray, int len, int id);
+int findEmpleadosById(Empleado *pArray, int limite,int id);
+int removeEmpleados(Empleado *pArray, int limite);
+int sortEmpleados(Empleado *pArray, int limite, int orden);
+int printEmpleados(Empleado *pArray, int limite);
 
 
 #endif /* ARRAYEMPLOYEES_H_ */
