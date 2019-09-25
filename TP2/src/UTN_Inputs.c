@@ -50,6 +50,33 @@ int getInt(int *pResultado,char *pMensaje,char *pMensajeError,int minimo,int max
 	return retorno;
 }
 
+int getChar(char* resultado,char* msg, char* msgError, int min, int max, int reintentos)
+{
+    int retorno=-1;
+    char bufferChar[2];
+
+    if(msg!=NULL && msgError!=NULL && min<=max && reintentos>=0 && resultado!=NULL)
+    {
+        do
+        {
+        	if(esChar(bufferChar[0])==1)
+            {
+               printf("OK");
+               *resultado=bufferChar[0];
+               retorno=0;
+               break;
+             }
+             else
+             {
+               printf("%s 2",msgError);
+               reintentos--;
+             }
+         }
+        while(reintentos>=0);
+    }
+    return retorno;
+}
+
 int getFloat(float *pResultado,char *pMensaje,char *pMensajeError,int minimo,int maximo,int reintentos)
 {
 	int retorno = -1;

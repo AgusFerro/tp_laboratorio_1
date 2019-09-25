@@ -4,8 +4,6 @@
 #include <string.h>
 #include "ArrayEmployees.h"
 
-void imprimeMenu();
-
 int main(void)
 {
 	int opcion,submenu,indice,j;
@@ -22,12 +20,12 @@ int main(void)
 		switch(opcion)
 		{
 		case 1:
-			addEmpleado(listaEmpleados,cantEmpleados,&ID);
+			addEmpleados(listaEmpleados,cantEmpleados,&ID);
 			imprimeMenu();
 			break;
 
 		case 2:
-			removeEmployee(listaEmpleados, cantEmpleados);
+			removeEmpleados(listaEmpleados, cantEmpleados);
 			imprimeMenu();
 			break;
 
@@ -65,7 +63,7 @@ int main(void)
 			break;
 
 		case 4:
-			printEmployees(listaEmpleados, cantEmpleados);
+			printEmpleados(listaEmpleados, cantEmpleados);
 			break;
 
 		case 5:
@@ -101,17 +99,4 @@ int main(void)
 	}
 	return 0;
 	}
-
-
-void imprimeMenu()
-{
-	printf("\n1.Alta");
-	printf("\n2.Baja");
-	printf("\n3.Modificacion");
-	printf("\n4.Listar");
-	printf("\n5.Ordenar");
-	printf("\n6.Salir");
-	printf("\n");
-
-}
 

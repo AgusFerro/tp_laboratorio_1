@@ -10,6 +10,8 @@
 
 int getInt(	int *pResultado, char *pMensaje, char *pMensajeError, int minimo, int maximo, int reintentos);
 
+int getChar(char* resultado,char* msg, char* msgError, int min, int max, int reintentos);
+
 int getString(char* pMessage,char* pErrMessage, char* pString);
 
 int getFloat(float *pResultado,char *pMensaje,char *pMensajeError,int minimo,int maximo,int reintentos);

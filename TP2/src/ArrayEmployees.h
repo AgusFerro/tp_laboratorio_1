@@ -25,8 +25,11 @@ typedef struct
 	int isEmpty;
 }Empleado;
 
+void imprimeMenu();
+
 int initEmpleados(Empleado *pArray , int limite);
-int addEmpleados(Empleado *pArray, int limite,int id, char *nombre, char *apellido, float suledo,int sector);
+int empleadoBuscarEmpty(Empleado *pArray, int limite, int* posicion);
+int addEmpleados(Empleado *pArray, int limite,int *contadorID);
 int findEmpleadosById(Empleado *pArray, int limite,int id);
 int removeEmpleados(Empleado *pArray, int limite);
 int sortEmpleados(Empleado *pArray, int limite, int orden);
