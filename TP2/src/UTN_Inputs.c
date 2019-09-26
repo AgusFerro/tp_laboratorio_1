@@ -53,13 +53,13 @@ int getInt(int *pResultado,char *pMensaje,char *pMensajeError,int minimo,int max
 int getChar(char* resultado,char* msg, char* msgError, int min, int max, int reintentos)
 {
     int retorno=-1;
-    char bufferChar[2];
+    char bufferChar[0];
 
     if(msg!=NULL && msgError!=NULL && min<=max && reintentos>=0 && resultado!=NULL)
     {
         do
         {
-        	if(esChar(bufferChar[0])==1)
+        	if(esChar(bufferChar)==1)
             {
                printf("OK");
                *resultado=bufferChar[0];
@@ -125,7 +125,7 @@ int getString(char* pMessage,char* pErrMessage, char* pString)
 		fgets(buffer, sizeof(buffer), stdin);
 		buffer[strlen(buffer)-1]='\0';
 
-		if(esLetra(buffer)==1)
+		if(esChar(buffer)==1)
 		{
 		strcpy(pString, buffer);
 		retorno = 0;

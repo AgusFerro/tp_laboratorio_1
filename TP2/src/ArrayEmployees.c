@@ -12,6 +12,17 @@ void imprimeMenu()
 
 }
 
+void imprimeMenuModif()
+{
+	printf("\nA.Nombre");
+	printf("\nB.Apellido");
+	printf("\nC.Sueldo");
+	printf("\nD.Sector");
+	printf("\nS.Salir");
+	printf("\n");
+
+}
+
 int initEmpleados(Empleado *pArray , int limite)
 {
 	int retorno = -1;
@@ -126,7 +137,7 @@ int empleado_modificar(Empleado *pArray, int limite)
         else
         {
             do
-            {       //copiar printf de alta
+            {
             	printf("\n Posicion %d_ ID %d Nombre %s Apellido %s Sueldo %f Sector %d",
             						posicion,
             						pArray[posicion].id,
@@ -134,20 +145,21 @@ int empleado_modificar(Empleado *pArray, int limite)
             						pArray[posicion].apellido,
             						pArray[posicion].sueldo,
             						pArray[posicion].sector);
+            	imprimeMenuModif();
                 getChar(&opcion,"\nIngrese una opcion: ","\nError",'A','Z',1);
                 switch(opcion)
                 {
                     case 'A':
-                        utn_getUnsignedInt("\n: ","\nError",1,sizeof(int),1,1,1,&array[posicion].varInt);           //mensaje + cambiar campo varInt
+                        getString("\nIngrese nombre: ","\nError",pArray[posicion].nombre);
                         break;
                     case 'B':
-                        utn_getFloat("\n: ","\nError",1,sizeof(float),0,1,1,&array[posicion].varFloat);             //mensaje + cambiar campo varFloat
+                        getString("\nIngrese apellido: ","\nError",pArray[posicion].apellido);
                         break;
                     case 'C':
-                        utn_getName("\n: ","\nError",1,TEXT_SIZE,1,array[posicion].varString);                      //mensaje + cambiar campo varString
+                        getFloat(&pArray[posicion].sueldo,"\nIngrese sueldo ","\nError",1500,10000,2);
                         break;
                     case 'D':
-                        utn_getTexto("\n: ","\nError",1,TEXT_SIZE,1,array[posicion].varLongString);             //mensaje + cambiar campo varLongString
+                        getInt(&pArray[posicion].sector,"\nIngrese sector: ","\nError",1,10,2);
                         break;
                     case 'S':
                         break;
@@ -161,41 +173,75 @@ int empleado_modificar(Empleado *pArray, int limite)
     return retorno;
 }
 
-int fantasma_ordenarPorDobleCriterio(Fantasma array[],int size, int orderFirst, int orderSecond)                              //cambiar fantasma
+int empleado_ordenarPorDobleCriterio(Empleado *pArray,int limite)
 {
     int retorno=-1;
     int i;
-    Fantasma buffer;
+    char orden;
+    Empleado buffer;
     int flagSwap;
 
-    if(array!=NULL && size>=0)
+    if(pArray!=NULL && limite>=0)
     {
-        do
-        {
-            flagSwap=0;
-            for (i = 1; i < size-1; i++)
-            {
-                if( ((strcmp(array[i].varString,array[i+1].varString) < 0) && orderFirst) ||
-                    ((strcmp(array[i].varString,array[i+1].varString) > 0) && !orderFirst) )
-                {
-                    flagSwap=1;
-                    buffer = array[i];
-                    array[i] = array[i+1];
-                    array[i+1] = buffer;
-                }
-                else if(strcmp(array[i].varString,array[i+1].varString) == 0)
-                {
-                    if( ((array[i].varFloat < array[i+1].varFloat) && orderSecond) ||
-                        ((array[i].varFloat > array[i+1].varFloat) && !orderSecond) )
-                    {
-                        flagSwap=1;
-                        buffer = array[i];
-                        array[i] = array[i+1];
-                        array[i+1] = buffer;
-                    }
-                }
-            }
-        }while(flagSwap);
+    	getChar(&orden,"\nIngrese orden asc/desc (A/D)","\nError",'A','Z',3);
+    	switch(orden)
+    	{
+    	case 'A':
+    		do
+    		{
+    			flagSwap=0;
+    			for (i = 1; i < limite-1; i++)
+    		    {
+    				if(strcmp(pArray[i].apellido,pArray[i+1].apellido) > 0)
+
+    				{
+    					flagSwap=1;
+    		    		buffer = pArray[i];
+    		    		pArray[i] = pArray[i+1];
+    		    		pArray[i+1] = buffer;
+    				}
+    				else if(strcmp(pArray[i].apellido,pArray[i+1].apellido) == 0)
+    				{
+    					if(pArray[i].sector > pArray[i+1].sector)
+    		    		{
+    		    		   flagSwap=1;
+    		    		   buffer = pArray[i];
+    		    		   pArray[i] = pArray[i+1];
+    		    		   pArray[i+1] = buffer;
+    		    		}
+    				}
+    		    }
+    		}while(flagSwap);
+    		break;
+
+    	case 'D':
+    		do
+    		{
+    		  flagSwap=0;
+    		  for (i = 1; i < limite-1; i++)
+    		  {
+    		      if(strcmp(pArray[i].apellido,pArray[i+1].apellido) < 0)
+    		      {
+    		        flagSwap=1;
+    		        buffer = pArray[i];
+    		        pArray[i] = pArray[i+1];
+    		        pArray[i+1] = buffer;
+    		      }
+    		      else if(strcmp(pArray[i].apellido,pArray[i+1].apellido) == 0)
+    		      {
+    		         if(pArray[i].sector < pArray[i+1].sector)
+    		         {
+    		           flagSwap=1;
+    		           buffer = pArray[i];
+    		           pArray[i] = pArray[i+1];
+    		           pArray[i+1] = buffer;
+    		          }
+    		       }
+    		   }
+    		 }while(flagSwap);
+    		break;
+    	}
+
         retorno=0;
     }
     return retorno;
