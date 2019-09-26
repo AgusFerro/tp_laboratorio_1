@@ -13,7 +13,8 @@
 #include <string.h>
 #include "UTN_Inputs.h"
 #include "UTN_Validaciones.h"
-#define cantEmpleados 1000
+
+#define CANT_EMP 1000
 
 typedef struct
 {
@@ -26,14 +27,17 @@ typedef struct
 }Empleado;
 
 void imprimeMenu();
+void imprimeMenuModif();
 
 int initEmpleados(Empleado *pArray , int limite);
 int empleadoBuscarEmpty(Empleado *pArray, int limite, int* posicion);
 int addEmpleados(Empleado *pArray, int limite,int *contadorID);
-int findEmpleadosById(Empleado *pArray, int limite,int id);
+int findEmpleadosById(Empleado *pArray, int limite,int id,int *posicion);
 int removeEmpleados(Empleado *pArray, int limite);
-int sortEmpleados(Empleado *pArray, int limite, int orden);
+int empleado_modificar(Empleado *pArray, int limite);
+int sortEmpleados(Empleado *pArray, int limite);
 int printEmpleados(Empleado *pArray, int limite);
+int promedioEmpleados(Empleado *pArray, int limite);
 
 
 #endif /* ARRAYEMPLOYEES_H_ */

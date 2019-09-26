@@ -6,12 +6,12 @@
 
 int main(void)
 {
-	int opcion,submenu,indice,j;
+	int opcion,opcionListar;
 	int reintentos = 3;
-	int ID, contadorID = 0, flag1 = 0;
-	Empleado listaEmpleados[cantEmpleados];
+	int ID = 0, flag1 = 0;
+	Empleado listaEmpleados[CANT_EMP];
 
-	initEmpleados(listaEmpleados,cantEmpleados);
+	initEmpleados(listaEmpleados,CANT_EMP);
 	imprimeMenu();
 	do
 	{
@@ -20,23 +20,58 @@ int main(void)
 		switch(opcion)
 		{
 		case 1:
-			addEmpleados(listaEmpleados,cantEmpleados,&ID);
+			addEmpleados(listaEmpleados,CANT_EMP,&ID);
+			flag1++;
 			imprimeMenu();
 			break;
 
 		case 2:
-			removeEmpleados(listaEmpleados, cantEmpleados);
-			imprimeMenu();
+			if(flag1<1)
+			{
+				printf("\nNo hay datos cargados");
+				imprimeMenu();
+			}
+			else
+			{
+				removeEmpleados(listaEmpleados, CANT_EMP);
+				imprimeMenu();
+			}
 			break;
 
 		case 3:
-			empleado_modificar(listaEmpleados,cantEmpleados);
+			if(flag1<1)
+			{
+				printf("\nNo hay datos cargados");
+				imprimeMenu();
+			}
+			else
+			{
+			empleado_modificar(listaEmpleados,CANT_EMP);
 			imprimeMenu();
+			}
 			break;
 
 		case 4:
-			empleado_ordenarPorDobleCriterio(listaEmpleados, cantEmpleados);
-			printEmpleados(listaEmpleados, cantEmpleados);
+			if(flag1<1)
+			{
+				printf("\nNo hay datos cargados");
+			}
+			else
+			{
+				getInt(&opcionListar,"\n1.PromedioSueldos - 2.ListaEmpleados ","\nError",1,2,2);
+				switch(opcionListar)
+				{
+				case 1:
+					promedioEmpleados(listaEmpleados,CANT_EMP);
+					break;
+				case 2:
+					sortEmpleados(listaEmpleados, CANT_EMP);
+					printEmpleados(listaEmpleados, CANT_EMP);
+					break;
+				}
+
+			}
+			imprimeMenu();
 			break;
 
 		case 5:

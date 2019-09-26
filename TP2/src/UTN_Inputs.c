@@ -21,6 +21,7 @@ int getInt(int *pResultado,char *pMensaje,char *pMensajeError,int minimo,int max
 	do
 	{
 		printf("%s",pMensaje);
+		fflush(stdin);
 		fgets(input,sizeof(input),stdin);
 		length = strlen(input);
 		length--;
@@ -58,7 +59,10 @@ int getChar(char* resultado,char* msg, char* msgError, int min, int max, int rei
     if(msg!=NULL && msgError!=NULL && min<=max && reintentos>=0 && resultado!=NULL)
     {
         do
-        {
+        {	printf("%s", msg);
+        	fflush(stdin);
+			fgets(bufferChar, sizeof(bufferChar), stdin);
+			bufferChar[strlen(bufferChar)-1]='\0';
         	if(esChar(bufferChar)==1)
             {
                printf("OK");
@@ -86,6 +90,7 @@ int getFloat(float *pResultado,char *pMensaje,char *pMensajeError,int minimo,int
 	do
 	{
 		printf("%s",pMensaje);
+		fflush(stdin);
 		fgets(input,sizeof(input),stdin);
 		length = strlen(input);
 		length--;
@@ -122,13 +127,14 @@ int getString(char* pMessage,char* pErrMessage, char* pString)
 	if(pMessage != NULL && pErrMessage != NULL)
 	{
 		printf("%s", pMessage);
+		fflush(stdin);
 		fgets(buffer, sizeof(buffer), stdin);
 		buffer[strlen(buffer)-1]='\0';
 
 		if(esChar(buffer)==1)
 		{
-		strcpy(pString, buffer);
-		retorno = 0;
+			strcpy(pString, buffer);
+			retorno = 0;
 		}else
 		{
 			printf("%s", pErrMessage);

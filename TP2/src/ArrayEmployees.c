@@ -5,9 +5,8 @@ void imprimeMenu()
 	printf("\n1.Alta");
 	printf("\n2.Baja");
 	printf("\n3.Modificacion");
-	printf("\n4.Listar");
-	printf("\n5.Ordenar");
-	printf("\n6.Salir");
+	printf("\n4.Informar");
+	printf("\n5.Salirr");
 	printf("\n");
 
 }
@@ -50,12 +49,17 @@ int addEmpleados(Empleado *pArray, int limite, int* contadorID)
         }
         else
         {
-            pArray[posicion].isEmpty=0;
+            fflush(stdin);
             getString("\nIngrese Nombre: ","\nError",pArray[posicion].nombre);
+            fflush(stdin);
             getString("\nIngrese Apellido: ","\nError",pArray[posicion].apellido);
+            fflush(stdin);
             getFloat(&pArray[posicion].sueldo,"\nIngrese Sueldo: ","\nError",1500,10000,3);
+            fflush(stdin);
             getInt(&pArray[posicion].sector,"\nIngrese Sector: ","\nError",1,10,2);
+            fflush(stdin);
             pArray[posicion].id = (*contadorID)++;
+            pArray[posicion].isEmpty=0;
             printf("\n Posicion: %d\n ID: %d\n Nombre: %s\n Apellido: %s\n Sueldo: %f\n Sector: %d",
                    posicion, pArray[posicion].id,pArray[posicion].nombre,pArray[posicion].apellido,pArray[posicion].sueldo,pArray[posicion].sector);
             retorno=0;
@@ -130,7 +134,7 @@ int empleado_modificar(Empleado *pArray, int limite)
     if(pArray!=NULL && limite>0)
     {
         getInt(&id,"\nID a modificar: ","\nError",1,2000,2);
-        if(empleado_buscarID(pArray,limite,id,&posicion)==-1)
+        if(findEmpleadosById(pArray,limite,id,&posicion)==-1)
         {
             printf("\nNo existe este ID");
         }
@@ -173,7 +177,7 @@ int empleado_modificar(Empleado *pArray, int limite)
     return retorno;
 }
 
-int empleado_ordenarPorDobleCriterio(Empleado *pArray,int limite)
+int sortEmpleados(Empleado *pArray,int limite)
 {
     int retorno=-1;
     int i;
@@ -247,7 +251,7 @@ int empleado_ordenarPorDobleCriterio(Empleado *pArray,int limite)
     return retorno;
 }
 
-int empleado_buscarID(Empleado *pArray, int limite, int valorBuscado, int* posicion)
+int findEmpleadosById(Empleado *pArray, int limite, int valorBuscado, int* posicion)
 {
     int retorno=-1;
     int i;
@@ -266,4 +270,39 @@ int empleado_buscarID(Empleado *pArray, int limite, int valorBuscado, int* posic
         }
     }
     return retorno;
+}
+
+int promedioEmpleados(Empleado *pArray, int limite)
+{
+	int retorno=-1;
+	int i,j;
+	int contador = 0,contadorSueldo = 0;
+	float acumulador = 0, promedio;
+
+	if(pArray!= NULL && limite>=0)
+	{
+		for(i=0;i<limite;i++)
+		{
+			if(pArray[i].isEmpty != 1)
+			{
+				acumulador = acumulador + pArray[i].sueldo;
+				contador++;
+			}
+		}
+
+		promedio = acumulador/contador;
+		printf("\nTotal de sueldos acumulados: %f",acumulador);
+		printf("\nPromedio de sueldos: %f",promedio);
+
+		for(j=0;j<limite;j++)
+		{
+			if(pArray[j].isEmpty != 1 && pArray[j].sueldo > promedio)
+			{
+				contadorSueldo++;
+			}
+		}
+		printf("\nCantidad de empleados que superan el promedio: %d",contadorSueldo++);
+		retorno = 0;
+	}
+	return retorno;
 }
