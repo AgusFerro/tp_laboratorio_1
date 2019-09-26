@@ -10,6 +10,7 @@
 
 int esInt(char *pArray,int limite);
 int esChar(char* string);
+int esSoloChar(char letra);
 int esFloat(char *pArray);
 
 

@@ -13,11 +13,11 @@ void imprimeMenu()
 
 void imprimeMenuModif()
 {
-	printf("\nA.Nombre");
-	printf("\nB.Apellido");
-	printf("\nC.Sueldo");
-	printf("\nD.Sector");
-	printf("\nS.Salir");
+	printf("\na.Nombre");
+	printf("\nb.Apellido");
+	printf("\nc.Sueldo");
+	printf("\nd.Sector");
+	printf("\ns.Salir");
 	printf("\n");
 
 }
@@ -49,16 +49,12 @@ int addEmpleados(Empleado *pArray, int limite, int* contadorID)
         }
         else
         {
-            fflush(stdin);
             getString("\nIngrese Nombre: ","\nError",pArray[posicion].nombre);
-            fflush(stdin);
             getString("\nIngrese Apellido: ","\nError",pArray[posicion].apellido);
-            fflush(stdin);
             getFloat(&pArray[posicion].sueldo,"\nIngrese Sueldo: ","\nError",1500,10000,3);
-            fflush(stdin);
             getInt(&pArray[posicion].sector,"\nIngrese Sector: ","\nError",1,10,2);
-            fflush(stdin);
-            pArray[posicion].id = (*contadorID)++;
+            (*contadorID)++;
+            pArray[posicion].id = *contadorID;
             pArray[posicion].isEmpty=0;
             printf("\n Posicion: %d\n ID: %d\n Nombre: %s\n Apellido: %s\n Sueldo: %f\n Sector: %d",
                    posicion, pArray[posicion].id,pArray[posicion].nombre,pArray[posicion].apellido,pArray[posicion].sueldo,pArray[posicion].sector);
@@ -150,27 +146,29 @@ int empleado_modificar(Empleado *pArray, int limite)
             						pArray[posicion].sueldo,
             						pArray[posicion].sector);
             	imprimeMenuModif();
-                getChar(&opcion,"\nIngrese una opcion: ","\nError",'A','Z',1);
+            	printf("\nIngrese opcion: ");
+            	__fpurge(stdin);
+            	scanf("%c",&opcion);
                 switch(opcion)
                 {
-                    case 'A':
+                    case 'a':
                         getString("\nIngrese nombre: ","\nError",pArray[posicion].nombre);
                         break;
-                    case 'B':
+                    case 'b':
                         getString("\nIngrese apellido: ","\nError",pArray[posicion].apellido);
                         break;
-                    case 'C':
+                    case 'c':
                         getFloat(&pArray[posicion].sueldo,"\nIngrese sueldo ","\nError",1500,10000,2);
                         break;
-                    case 'D':
+                    case 'd':
                         getInt(&pArray[posicion].sector,"\nIngrese sector: ","\nError",1,10,2);
                         break;
-                    case 'S':
+                    case 's':
                         break;
                     default:
                         printf("\nOpcion no valida");
                 }
-            }while(opcion!='S');
+            }while(opcion!='s');
             retorno=0;
         }
     }
@@ -180,17 +178,17 @@ int empleado_modificar(Empleado *pArray, int limite)
 int sortEmpleados(Empleado *pArray,int limite)
 {
     int retorno=-1;
-    int i;
+    int i,j;
     char orden;
     Empleado buffer;
     int flagSwap;
 
     if(pArray!=NULL && limite>=0)
     {
-    	getChar(&orden,"\nIngrese orden asc/desc (A/D)","\nError",'A','Z',3);
+    	getChar(&orden,"\nIngrese orden asc/desc (a/d)","\nError",3);
     	switch(orden)
     	{
-    	case 'A':
+    	case 'a':
     		do
     		{
     			flagSwap=0;
@@ -199,6 +197,7 @@ int sortEmpleados(Empleado *pArray,int limite)
     				if(strcmp(pArray[i].apellido,pArray[i+1].apellido) > 0)
 
     				{
+    					printf("entro a");
     					flagSwap=1;
     		    		buffer = pArray[i];
     		    		pArray[i] = pArray[i+1];
@@ -218,31 +217,36 @@ int sortEmpleados(Empleado *pArray,int limite)
     		}while(flagSwap);
     		break;
 
-    	case 'D':
+    	case 'd':
     		do
     		{
     		  flagSwap=0;
-    		  for (i = 1; i < limite-1; i++)
+    		  for (j = 1; j < limite-1; j++)
     		  {
-    		      if(strcmp(pArray[i].apellido,pArray[i+1].apellido) < 0)
+    		      if(strcmp(pArray[j].apellido,pArray[j+1].apellido) < 0)
     		      {
+    		    	  printf("entro d");
     		        flagSwap=1;
-    		        buffer = pArray[i];
-    		        pArray[i] = pArray[i+1];
-    		        pArray[i+1] = buffer;
+    		        buffer = pArray[j];
+    		        pArray[j] = pArray[j+1];
+    		        pArray[j+1] = buffer;
     		      }
-    		      else if(strcmp(pArray[i].apellido,pArray[i+1].apellido) == 0)
+    		      else if(strcmp(pArray[j].apellido,pArray[j+1].apellido) == 0)
     		      {
-    		         if(pArray[i].sector < pArray[i+1].sector)
+    		         if(pArray[j].sector < pArray[j+1].sector)
     		         {
     		           flagSwap=1;
-    		           buffer = pArray[i];
-    		           pArray[i] = pArray[i+1];
-    		           pArray[i+1] = buffer;
+    		           buffer = pArray[j];
+    		           pArray[j] = pArray[j+1];
+    		           pArray[j+1] = buffer;
     		          }
     		       }
+    		      else
+    		      {
+    		    	  printf("no entro");
+    		      }
     		   }
-    		 }while(flagSwap);
+    		 }while(flagSwap==0);
     		break;
     	}
 

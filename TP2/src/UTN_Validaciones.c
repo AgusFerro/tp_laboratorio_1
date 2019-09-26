@@ -45,6 +45,19 @@ int esChar(char* string)
 	return retorno;
 }
 
+int esSoloChar(char letra)
+{
+	int retorno = 1;
+	if((letra < 'a' || letra > 'z') &&
+		(letra < 'A' || letra > 'Z') &&
+		(letra != ' '))
+	{
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
 int esFloat(char *pArray)
 {
     int retorno=1;

@@ -34,6 +34,8 @@ int main(void)
 			else
 			{
 				removeEmpleados(listaEmpleados, CANT_EMP);
+				printf("\nBaja correcta");
+				flag1--;
 				imprimeMenu();
 			}
 			break;
