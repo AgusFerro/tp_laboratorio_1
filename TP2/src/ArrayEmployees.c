@@ -6,7 +6,7 @@ void imprimeMenu()
 	printf("\n2.Baja");
 	printf("\n3.Modificacion");
 	printf("\n4.Informar");
-	printf("\n5.Salirr");
+	printf("\n5.Salir");
 	printf("\n");
 
 }
@@ -192,18 +192,19 @@ int sortEmpleados(Empleado *pArray,int limite)
     		do
     		{
     			flagSwap=0;
-    			for (i = 1; i < limite-1; i++)
+    			for (i = 0; i < limite-1; i++)
     		    {
-    				if(strcmp(pArray[i].apellido,pArray[i+1].apellido) > 0)
+    				if(strcmp(pArray[i].apellido,pArray[i+1].apellido) > 0
+    					&& pArray[i].isEmpty == 0 && pArray[i+1].isEmpty == 0)
 
     				{
-    					printf("entro a");
     					flagSwap=1;
     		    		buffer = pArray[i];
     		    		pArray[i] = pArray[i+1];
     		    		pArray[i+1] = buffer;
     				}
-    				else if(strcmp(pArray[i].apellido,pArray[i+1].apellido) == 0)
+    				else if(strcmp(pArray[i].apellido,pArray[i+1].apellido) == 0
+    					&& pArray[i].isEmpty == 0 && pArray[i+1].isEmpty == 0)
     				{
     					if(pArray[i].sector > pArray[i+1].sector)
     		    		{
@@ -221,17 +222,19 @@ int sortEmpleados(Empleado *pArray,int limite)
     		do
     		{
     		  flagSwap=0;
-    		  for (j = 1; j < limite-1; j++)
+    		  for (j = 0; j < limite-1; j++)
     		  {
-    		      if(strcmp(pArray[j].apellido,pArray[j+1].apellido) < 0)
+    		      if(strcmp(pArray[j].apellido,pArray[j+1].apellido) < 0
+    		    	&& pArray[j].isEmpty == 0 && pArray[j+1].isEmpty == 0)
+
     		      {
-    		    	  printf("entro d");
     		        flagSwap=1;
     		        buffer = pArray[j];
     		        pArray[j] = pArray[j+1];
     		        pArray[j+1] = buffer;
     		      }
-    		      else if(strcmp(pArray[j].apellido,pArray[j+1].apellido) == 0)
+    		      else if(strcmp(pArray[j].apellido,pArray[j+1].apellido) == 0
+    		    		  && pArray[j].isEmpty == 0 && pArray[j+1].isEmpty == 0)
     		      {
     		         if(pArray[j].sector < pArray[j+1].sector)
     		         {
@@ -241,10 +244,6 @@ int sortEmpleados(Empleado *pArray,int limite)
     		           pArray[j+1] = buffer;
     		          }
     		       }
-    		      else
-    		      {
-    		    	  printf("no entro");
-    		      }
     		   }
     		 }while(flagSwap==0);
     		break;
