@@ -1,10 +1,3 @@
-/*
- * UTN_Inputs.c
- *
- *  Created on: 11 sep. 2019
- *      Author: alumno
- */
-
 #include <stdio.h>
 #include <stdio_ext.h>
 #include <stdlib.h>
@@ -118,27 +111,30 @@ int getFloat(float *pResultado,char *pMensaje,char *pMensajeError,int minimo,int
 	return retorno;
 }
 
-int getString(char* pMessage,char* pErrMessage, char* pString)
+int getString(char* pMessage,char* pErrMessage, char* pString, int reintentos)
 {
 	int retorno = -1;
 	char buffer[100];
 	if(pMessage != NULL && pErrMessage != NULL)
 	{
-		printf("%s", pMessage);
-		__fpurge(stdin);
-		fgets(buffer, sizeof(buffer), stdin);
-		buffer[strlen(buffer)-1]='\0';
+		do{
+			printf("%s", pMessage);
+			__fpurge(stdin);
+			fgets(buffer, sizeof(buffer), stdin);
+			buffer[strlen(buffer)-1]='\0';
 
-		if(esChar(buffer)==1)
-		{
-			strcpy(pString, buffer);
-			retorno = 0;
-		}else
-		{
-			printf("%s", pErrMessage);
-		}
+			if(esChar(buffer)==1)
+			{
+				strcpy(pString, buffer);
+				retorno = 0;
+				break;
+			}
+			else
+			{
+				printf("%s", pErrMessage);
+				reintentos--;
+			}
+		}while(reintentos >=0 );
 	}
 	return retorno;
 }
-
-

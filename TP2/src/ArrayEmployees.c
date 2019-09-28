@@ -22,6 +22,97 @@ void imprimeMenuModif()
 
 }
 
+int abmEmpleados(void)
+{
+		int opcion,opcionListar;
+		int reintentos = 3;
+		int ID = 0, flag1 = 0;
+		Empleado listaEmpleados[CANT_EMP];
+
+		initEmpleados(listaEmpleados,CANT_EMP);
+		imprimeMenu();
+		do
+		{
+			__fpurge(stdin);
+			scanf("%d",&opcion);
+			switch(opcion)
+			{
+			case 1:
+				addEmpleados(listaEmpleados,CANT_EMP,&ID);
+				flag1++;
+				imprimeMenu();
+				break;
+
+			case 2:
+				if(flag1<1)
+				{
+					printf("\nNo hay datos cargados");
+					imprimeMenu();
+				}
+				else
+				{
+					removeEmpleados(listaEmpleados, CANT_EMP);
+					printf("\nBaja correcta");
+					flag1--;
+					imprimeMenu();
+				}
+				break;
+
+			case 3:
+				if(flag1<1)
+				{
+					printf("\nNo hay datos cargados");
+					imprimeMenu();
+				}
+				else
+				{
+				empleado_modificar(listaEmpleados,CANT_EMP);
+				imprimeMenu();
+				}
+				break;
+
+			case 4:
+				if(flag1<1)
+				{
+					printf("\nNo hay datos cargados");
+				}
+				else
+				{
+					getInt(&opcionListar,"\n1.PromedioSueldos - 2.ListaEmpleados ","\nError",1,2,2);
+					switch(opcionListar)
+					{
+					case 1:
+						promedioEmpleados(listaEmpleados,CANT_EMP);
+						break;
+					case 2:
+						sortEmpleados(listaEmpleados, CANT_EMP);
+						printEmpleados(listaEmpleados, CANT_EMP);
+						break;
+					}
+
+				}
+				imprimeMenu();
+				break;
+
+			case 5:
+				printf("Hasta pronto!");
+				break;
+			default:
+				reintentos--;
+				printf("Opcion incorrecta, cantidad de reintentos: %d \n",reintentos);
+				imprimeMenu();
+				break;
+			}
+
+		}while(opcion != 5 && reintentos > 1);
+		if(reintentos <= 1)
+		{
+			printf("Cantidad de reintentos agotada\n");
+		}
+
+		return 0;
+}
+
 int initEmpleados(Empleado *pArray , int limite)
 {
 	int retorno = -1;
@@ -49,15 +140,17 @@ int addEmpleados(Empleado *pArray, int limite, int* contadorID)
         }
         else
         {
-            getString("\nIngrese Nombre: ","\nError",pArray[posicion].nombre);
-            getString("\nIngrese Apellido: ","\nError",pArray[posicion].apellido);
-            getFloat(&pArray[posicion].sueldo,"\nIngrese Sueldo: ","\nError",1500,10000,3);
-            getInt(&pArray[posicion].sector,"\nIngrese Sector: ","\nError",1,10,2);
+            getString("\nIngrese Nombre: ","\nError",pArray[posicion].nombre,3);
+            getString("\nIngrese Apellido: ","\nError",pArray[posicion].apellido,3);
+            getFloat(&pArray[posicion].sueldo,"\nIngrese Sueldo: ","\nError",MIN_SUELD,MAX_SUELD,3);
+            getInt(&pArray[posicion].sector,"\nIngrese Sector: ","\nError",MIN_SECT,MAX_SECT,2);
             (*contadorID)++;
             pArray[posicion].id = *contadorID;
             pArray[posicion].isEmpty=0;
             printf("\n Posicion: %d\n ID: %d\n Nombre: %s\n Apellido: %s\n Sueldo: %f\n Sector: %d",
                    posicion, pArray[posicion].id,pArray[posicion].nombre,pArray[posicion].apellido,pArray[posicion].sueldo,pArray[posicion].sector);
+            printf("\n");
+
             retorno=0;
         }
     }
@@ -87,7 +180,7 @@ int removeEmpleados(Empleado *pArray, int limite)
 {
 	int retorno = -1;
 	int ID;
-	if(getInt(&ID,"Ingrese un ID para dar de baja","Error",1,2000,2)==0)
+	if(getInt(&ID,"Ingrese un ID para dar de baja","Error",MIN_ID,MAX_ID,2)==0)
 	{
 		for(int i=0;i<limite;i++)
 		{
@@ -129,7 +222,7 @@ int empleado_modificar(Empleado *pArray, int limite)
     char opcion;
     if(pArray!=NULL && limite>0)
     {
-        getInt(&id,"\nID a modificar: ","\nError",1,2000,2);
+        getInt(&id,"\nID a modificar: ","\nError",MIN_ID,MAX_ID,2);
         if(findEmpleadosById(pArray,limite,id,&posicion)==-1)
         {
             printf("\nNo existe este ID");
@@ -146,22 +239,20 @@ int empleado_modificar(Empleado *pArray, int limite)
             						pArray[posicion].sueldo,
             						pArray[posicion].sector);
             	imprimeMenuModif();
-            	printf("\nIngrese opcion: ");
-            	__fpurge(stdin);
-            	scanf("%c",&opcion);
+            	getChar(&opcion,"\nQue desea modificar?","\nError",3);
                 switch(opcion)
                 {
                     case 'a':
-                        getString("\nIngrese nombre: ","\nError",pArray[posicion].nombre);
+                        getString("\nIngrese nombre: ","\nError",pArray[posicion].nombre,3);
                         break;
                     case 'b':
-                        getString("\nIngrese apellido: ","\nError",pArray[posicion].apellido);
+                        getString("\nIngrese apellido: ","\nError",pArray[posicion].apellido,3);
                         break;
                     case 'c':
-                        getFloat(&pArray[posicion].sueldo,"\nIngrese sueldo ","\nError",1500,10000,2);
+                        getFloat(&pArray[posicion].sueldo,"\nIngrese sueldo ","\nError",MIN_SUELD,MAX_SUELD,2);
                         break;
                     case 'd':
-                        getInt(&pArray[posicion].sector,"\nIngrese sector: ","\nError",1,10,2);
+                        getInt(&pArray[posicion].sector,"\nIngrese sector: ","\nError",MIN_SECT,MAX_SECT,2);
                         break;
                     case 's':
                         break;
