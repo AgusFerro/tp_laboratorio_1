@@ -27,7 +27,7 @@ Employee* employee_newParametros(char* id,char* nombre,char* horasTrabajadas,cha
 
 	this=employee_new();
 	if( isInt(id)==0 &&
-		isLetras(nombre)==0 &&
+		//isLetras(nombre)==0 &&
 		isInt(horasTrabajadas)==0 &&
 		isInt(sueldo)==0 &&
 	    employee_setId(this,atoi(id))==0 &&
@@ -60,15 +60,24 @@ int employee_delete(Employee* this)
 int employee_setId(Employee* this,int id)
 {
 	int retorno=-1;
+	static int proximoId=-1;
 
-	if(this != NULL && id >= 0)
+	if(this!=NULL && id==-1 && isValidId(id)==0)
 	{
-        this->id = id;
-        retorno = 0;
+	   proximoId++;
+	   this->id=proximoId;
+	   retorno=0;
 	}
 	else
 	{
-		printf("\nNo se pudo establecer el ID");
+	   this->id=id;
+	   retorno=0;
+	}
+
+	if(id>proximoId)
+	{
+	   proximoId=id;
+	   retorno=0;
 	}
 	return retorno;
 }
@@ -103,7 +112,7 @@ int employee_getNombre(Employee* this,char* nombre)
 	int retorno = -1;
 	if(this != NULL)
 	{
-	   strncpy(nombre,this->nombre,sizeof(this->nombre));
+	   strncpy(nombre,this->nombre,sizeof(nombre));
 	   retorno = 0;
 	}
 	return retorno;
@@ -163,13 +172,42 @@ int employee_validarEmpleado(Employee* pEmpleado)
 {
     int retorno=-1;
 
-    if(!isValidId(pEmpleado->id)&&
-        !isValidNombre(pEmpleado->nombre) &&
-        !isValidHoras(pEmpleado->horasTrabajadas)&&
-        !isValidSueldo(pEmpleado->sueldo))
+    if(isValidId(pEmpleado->id)==0 &&
+       isValidNombre(pEmpleado->nombre)==0 &&
+       isValidHoras(pEmpleado->horasTrabajadas)==0 &&
+       isValidSueldo(pEmpleado->sueldo)==0)
     {
-            retorno=0;
+       retorno=0;
+    }
+    else
+    {
+    	printf("\nNo se pudo validar el empleado");
+    }
+    return retorno;
+}
+
+int employee_buscarMaxId(LinkedList* pArrayListEmployee)
+{
+    int retorno=-1;
+    int len;
+    int i;
+    int bufferId, idMax=0;
+    Employee* bufferEmployee;
+
+    if(pArrayListEmployee != NULL)
+    {
+        len=ll_len(pArrayListEmployee);
+        for(i=0;i<len;i++)
+        {
+            bufferEmployee=(Employee*)ll_get(pArrayListEmployee,i);
+            employee_getId(bufferEmployee,&bufferId);
+            if(idMax<bufferId)
+            {
+            	idMax=bufferId;
+            }
         }
+        retorno=idMax;
+    }
     return retorno;
 }
 static int isInt(char *pBuffer)

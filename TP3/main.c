@@ -47,13 +47,12 @@ void imprimirMenu(void);
 int main()
 {
     int option;
-    char var1[50],var2[50],var3[50],var4[50];
+    int id;
     LinkedList* listaEmpleados = ll_newLinkedList();
-    FILE* data = fopen("data.csv","r");
 
     imprimirMenu();
     do{
-    	utn_getInt(&option,"Ingrese opcion","Error",1,10,2);
+    	utn_getInt(&option,"\nIngrese opcion","\nError",1,10,2);
         switch(option)
         {
             case 1:
@@ -66,9 +65,31 @@ int main()
                 	printf("\nError al cargar");
                 }
                 break;
+
             case 2:
-                controller_loadFromBinary("data.csv",listaEmpleados);
+                if(controller_loadFromBinary("data.csv",listaEmpleados)==0)
+                {
+                	printf("\nCargado con exito");
+                }
+                else
+                {
+                	printf("\nError al cargar");
+                }
                 break;
+            case 3:
+                if(controller_addEmployee(listaEmpleados)==0)
+                {
+                	printf("\nEmpleado dado de alta");
+                }
+                else
+                {
+                	printf("\nError al dar de alta");
+                }
+                break;
+            case 4:
+            	id=employee_buscarMaxId(listaEmpleados);
+            	printf("\nIdMax: %d",id);
+            	break;
             case 6:
             	controller_ListEmployee(listaEmpleados);
                 break;
@@ -83,7 +104,6 @@ int main()
         }
     }while(option != 10);
 
-    controller_ListEmployee(listaEmpleados);
     return 0;
 }
 

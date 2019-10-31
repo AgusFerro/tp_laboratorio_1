@@ -24,7 +24,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 	while(!feof(pFile))
 	{
 	    registro = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,horas,sueldo);
-	    printf("%s %s %s %s \n",id,nombre,horas,sueldo);
 
 	    if(registro == 4)
 	    {
@@ -32,6 +31,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 	       if(empleado!=NULL)
 	       {
 	    	   ll_add(pArrayListEmployee,empleado);
+	    	   printf("\n %d %s %d %d ",empleado->id,empleado->nombre,empleado->horasTrabajadas,empleado->sueldo);
 	       }
 	       else
 	       {
@@ -61,19 +61,22 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno=-1;
-	    Employee* pEmpleado;
+	int leidos=0;
+	Employee* pEmpleado;
+
 	    if(pFile!=NULL && pArrayListEmployee!= NULL)
 	    {
 	    	do
 	    	{
 	    	 	 pEmpleado=employee_new();
-	    	 	 fread(pEmpleado,sizeof(Employee),1,pFile);
-	    	 	 if(!employee_validarEmpleado(pEmpleado))
+	    	 	 leidos=fread(pEmpleado,sizeof(Employee),1,pFile);
+	    	 	 if(leidos==1 && employee_validarEmpleado(pEmpleado)==0)
 	    	 	 {
-	    	 		 ll_add(pArrayListEmployee,pEmpleado);
+	    	 		ll_add(pArrayListEmployee,pEmpleado);
 	    	 	 }
 	    	 	 else
 	    	 	 {
+	    	 		 printf("\nEl empleado no pudo ser cargado");
 	                employee_delete(pEmpleado);
 	    	 	 }
 	    	}while(!feof(pFile));
