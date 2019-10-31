@@ -86,9 +86,8 @@ int employee_getId(Employee* this,int* id)
 
 int employee_setNombre(Employee* this,char* nombre)
 {
-	printf("%s",nombre);
 	int retorno = -1;
-	if(this != NULL)// && isValidNombre(nombre))
+	if(this != NULL && isValidNombre(nombre)==0)
 	{
 		strncpy(this->nombre,nombre,sizeof(this->nombre));
 		retorno = 0;
@@ -199,7 +198,7 @@ static int isLetras(char*pBuffer)
 
     for(int i=0;i<strlen(pBuffer);i++)
     {
-        if((pBuffer[i]<'A' || pBuffer[i]>'Z') && (pBuffer[i]<'a' || pBuffer[i]>'z'))
+        if((pBuffer[i]<'A' || pBuffer[i]>'Z') && (pBuffer[i]<'a' || pBuffer[i]>'z') &&pBuffer[i]!=' ')
         {
         	printf("\nNo son letras %d",i);
             break;
@@ -216,8 +215,13 @@ static int isLetras(char*pBuffer)
 static int isValidNombre(char* nombre)
 {
     int retorno=-1;
-    if(nombre!= NULL && strlen(nombre)<50 && strlen(nombre)>1){
+    if(nombre!= NULL && strlen(nombre)<50 && strlen(nombre)>1)
+    {
         retorno=0;
+    }
+    else
+    {
+    	printf("\nNombre supera los limites");
     }
     return retorno;
 }
