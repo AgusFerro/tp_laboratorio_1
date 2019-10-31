@@ -9,7 +9,6 @@ getString
 utn_getName
 utn_getInt
 utn_getFloat
-utn_getId
 utn_getChar
 */
 
@@ -149,47 +148,6 @@ int utn_getFloat(float *pResultado,char *pMensaje,char *pMensajeError,int minimo
 	}while(reintentos >= 0);
 	return retorno;
 }
-
-//***************************************
-int utn_getInt(int *pResultado,char *pMensaje,char *pMensajeError,int minimo,int maximo,int reintentos)
-{
-	int retorno = -1;
-	int buffer;
-	char input[50];
-	int length;
-	do
-	{
-		printf("%s",pMensaje);
-		__fpurge(stdin);
-		fgets(input,sizeof(input),stdin);
-		length = strlen(input);
-		length--;
-		if(isValidId(input,length)==0)
-		{
-			buffer = atoi(input);
-			if(buffer >= minimo && buffer <= maximo)
-			{
-				*pResultado = buffer;
-				retorno = 0;
-				break;
-			}
-			else
-			{
-				printf("%s",pMensajeError);
-				reintentos--;
-			}
-
-		}
-		else
-		{
-			printf("No es un numero");
-			reintentos--;
-		};
-
-	}while(reintentos >= 0);
-	return retorno;
-}
-
 //***************************************
 int utn_getCUIT(char* msg, char* msgError, int reintentos, char* input)
 {

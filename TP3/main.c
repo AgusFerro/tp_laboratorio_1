@@ -57,7 +57,14 @@ int main()
         switch(option)
         {
             case 1:
-                controller_loadFromText("data.csv",listaEmpleados);
+                if(controller_loadFromText("data.csv",listaEmpleados)==0)
+                {
+                	printf("\nCargado con exito");
+                }
+                else
+                {
+                	printf("\nError al cargar");
+                }
                 break;
             case 2:
                 controller_loadFromBinary("data.csv",listaEmpleados);
@@ -69,10 +76,6 @@ int main()
             	controller_sortEmployee(listaEmpleados);
                 break;
             case 9:
-            	do{
-            	fscanf(data,"%[^,],%[^,],%[^,],%[^\n]",var1,var2,var3,var4);
-            	printf("%s %s %s %s",var1,var2,var3,var4);
-            	}while(!feof(data));
             	break;
             case 10:
             	printf("salir");

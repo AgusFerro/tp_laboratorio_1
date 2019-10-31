@@ -12,9 +12,6 @@ int isValidNumber(char* stringRecibido,int limite);
 int isValidFloatNumber(char* stringRecibido,int limite);
 //valida que el usuario haya ingresado un numero float
 
-int isValidId(char* stringRecibido,int limite);
-//
-
 int isValidCUIT(char* stringRecibido);
 //valida que el usuario haya ingresado un cuit/cuil
 

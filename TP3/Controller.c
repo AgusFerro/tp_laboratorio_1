@@ -13,7 +13,30 @@
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	FILE*pArchivo;
+	int retorno=-1;
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+	   pArchivo=fopen(path,"r");
+	   if(pArchivo != NULL)
+	   {
+	      if(parser_EmployeeFromText(pArchivo,pArrayListEmployee)==0)
+	      {
+	    	  fclose(pArchivo);
+	    	  retorno=0;
+	      }
+	      else
+	      {
+	    	  printf("\nNo se pudo cargar la lista");
+	      }
+
+	   }
+	   else
+	   {
+	      printf("\nNo se pudo abrir el archivo...");
+	   }
+	}
+    return retorno;
 }
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
@@ -25,7 +48,23 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno=-1;
+    FILE* pFile;
+    if(path!=NULL && pArrayListEmployee!=NULL)
+    {
+        pFile=fopen(path,"rb");
+        if(pFile!=NULL)
+        {
+            parser_EmployeeFromBinary(pFile,pArrayListEmployee);
+            retorno=0;
+        }
+        else
+        {
+            printf("\nEl archivo no pudo abrirse");
+        }
+
+    }
+    return retorno;
 }
 
 /** \brief Alta de empleados
@@ -73,7 +112,30 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno=-1;
+    int len;
+    int i;
+    int bufferId;
+    int bufferSueldo;
+    char bufferNombre[50];
+    int bufferHoras;
+    Employee* bufferEmployee;
+    if(pArrayListEmployee != NULL)
+    {
+        len=ll_len(pArrayListEmployee);
+        for(i=0;i<len;i++)
+        {
+            bufferEmployee=(Employee*)ll_get(pArrayListEmployee,i);
+            employee_getNombre(bufferEmployee,bufferNombre);
+            employee_getId(bufferEmployee,&bufferId);
+            employee_getSueldo(bufferEmployee,&bufferSueldo);
+            employee_getHorasTrabajadas(bufferEmployee,&bufferHoras);
+            printf("Id - %d,Nombre - %s,Horas - %d,Sueldo - %d\n",bufferId,bufferNombre,bufferHoras,bufferSueldo);
+        }
+        retorno=0;
+    }
+    return retorno;
+
 }
 
 /** \brief Ordenar empleados

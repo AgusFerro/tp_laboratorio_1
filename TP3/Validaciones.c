@@ -55,21 +55,6 @@ int isValidFloatNumber(char* stringRecibido, int limite)
     return retorno;
 }
 
-int isValidId(char* stringRecibido)
-{
-    int retorno=0;
-    int i;
-    for(i=0;stringRecibido[i]!='\0';i++)
-    {
-        if(stringRecibido[i]<'0' || stringRecibido[i]>'9')
-        {
-            retorno=-1;
-            break;
-        }
-    }
-    return retorno;
-}
-
 int isValidCUIT(char* stringRecibido)
 {
     int retorno=0;
