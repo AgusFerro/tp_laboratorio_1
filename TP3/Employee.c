@@ -27,7 +27,7 @@ Employee* employee_newParametros(char* id,char* nombre,char* horasTrabajadas,cha
 
 	this=employee_new();
 	if( isInt(id)==0 &&
-		//isLetras(nombre)==0 &&
+		isLetras(nombre)==0 &&
 		isInt(horasTrabajadas)==0 &&
 		isInt(sueldo)==0 &&
 	    employee_setId(this,atoi(id))==0 &&
@@ -236,7 +236,7 @@ static int isLetras(char*pBuffer)
 
     for(int i=0;i<strlen(pBuffer);i++)
     {
-        if((pBuffer[i]<'A' || pBuffer[i]>'Z') && (pBuffer[i]<'a' || pBuffer[i]>'z') &&pBuffer[i]!=' ')
+        if((pBuffer[i]<'A' || pBuffer[i]>'Z') && (pBuffer[i]<'a' || pBuffer[i]>'z') && pBuffer[i]!=' ' && pBuffer[i]!='-')
         {
         	printf("\nNo son letras %d",i);
             break;
