@@ -47,7 +47,6 @@ void imprimirMenu(void);
 int main()
 {
     int option;
-    int id;
     LinkedList* listaEmpleados = ll_newLinkedList();
 
     imprimirMenu();
@@ -87,8 +86,14 @@ int main()
                 }
                 break;
             case 4:
-            	id=employee_buscarMaxId(listaEmpleados);
-            	printf("\nIdMax: %d",id);
+                if(controller_editEmployee(listaEmpleados)==0)
+                {
+                	printf("\nEmpleado modificado");
+                }
+                else
+                {
+                	printf("\nError al dar de alta");
+                }
             	break;
             case 6:
             	controller_ListEmployee(listaEmpleados);
@@ -99,7 +104,7 @@ int main()
             case 9:
             	break;
             case 10:
-            	printf("salir");
+            	printf("\nSalir");
             	break;
         }
     }while(option != 10);
