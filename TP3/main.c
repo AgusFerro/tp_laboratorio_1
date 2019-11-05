@@ -61,6 +61,7 @@ int main()
             		if(controller_loadFromText("data.csv",listaEmpleados)==0)
             		{
             			printf("\nCargado en modo Texto con exito");
+            			flagText++;
             		}
             		else
             		{
@@ -71,14 +72,15 @@ int main()
             	{
             		printf("\nLa lista ya fue cargada");
             	}
+            	imprimirMenu();
                 break;
-
             case 2:
             	if(flagText==0 && flagBin==0)
                 {
-            		if(controller_loadFromBinary("data.bin",listaEmpleados)==0)
+            		if(controller_loadFromBinary("data_prueba.bin",listaEmpleados)==0)
                     {
                     	printf("\nCargado en modo Binario con exito");
+                    	flagBin++;
                     }
                     else
                     {
@@ -89,37 +91,108 @@ int main()
                 {
                 	printf("\nLa lista ya fue cargada");
                 }
+            	imprimirMenu();
                 break;
             case 3:
-                if(controller_addEmployee(listaEmpleados)==0)
-                {
-                	printf("\nEmpleado dado de alta");
-                	flagAdd++;
-                }
-                else
-                {
-                	printf("\nError al dar de alta");
-                }
+            	if(flagText==1 || flagBin==1)
+            	{
+            		if(controller_addEmployee(listaEmpleados)==0)
+            		{
+            			printf("\nEmpleado dado de alta");
+            			flagAdd++;
+            		}
+            		else
+            		{
+            			printf("\nError al dar de alta");
+            		}
+            	}
+            	else
+            	{
+            		printf("\nTodavia hay informacion que no fue cargada");
+            	}
+            	imprimirMenu();
                 break;
             case 4:
-                if(controller_editEmployee(listaEmpleados)==0)
-                {
-                	printf("\nEmpleado modificado");
-                }
-                else
-                {
-                	printf("\nError al dar de alta");
-                }
+            	if(flagText==1 || flagBin==1 || flagAdd>0)
+            	{
+            		if(controller_editEmployee(listaEmpleados)==0)
+            		{
+            			printf("\nEmpleado modificado");
+            		}
+            		else
+            		{
+            			printf("\nError al modificar");
+            		}
+            	}
+            	else
+            	{
+            		printf("\nNo hay datos para modificar");
+            	}
+            	imprimirMenu();
+            	break;
+            case 5:
+            	if(flagText==1 || flagBin==1 || flagAdd>0)
+            	{
+            		if(controller_removeEmployee(listaEmpleados)==0)
+            		{
+            			printf("\nEmpleado dado de baja");
+            		}
+            		else
+            		{
+            			printf("\nError al dar de baja");
+            		}
+            	}
+            	else
+            	{
+            		printf("\nNo hay datos para dar de baja");
+            	}
+            	imprimirMenu();
             	break;
             case 6:
-            	controller_ListEmployee(listaEmpleados);
+            	if(flagText==1 || flagBin==1)
+            	{
+            		controller_ListEmployee(listaEmpleados);
+            	}
+            	else
+            	{
+            		printf("\nNo hay datos para listar");
+            	}
+            	imprimirMenu();
                 break;
             case 7:
-            	controller_sortEmployee(listaEmpleados);
+            	//no funciona
+            	if(flagText==1 || flagBin==1)
+            	{
+            		controller_sortEmployee(listaEmpleados);
+            	}
+            	else
+            	{
+            		printf("\nNo hay datos para ordenar");
+            	}
+            	imprimirMenu();
                 break;
             case 8:
+            	//pierdo los id pares (?
+            	if(flagText==1 || flagBin==1)
+            	{
+            		controller_saveAsText("data_prueba.csv",listaEmpleados);
+            	}
+            	else
+            	{
+            		printf("\nNo hay datos para guardar en archivo");
+            	}
+            	imprimirMenu();
             	break;
             case 9:
+            	if(flagText==1 || flagBin==1)
+            	{
+            		controller_saveAsBinary("data_prueba.bin",listaEmpleados);
+            	}
+            	else
+            	{
+            		printf("\nNo hay datos para guardar en archivo");
+            	}
+            	imprimirMenu();
             	break;
             case 10:
             	printf("\nSalir");
