@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "LinkedList.h"
+#include "parser.h"
 #include "Employee.h"
 #include "Inputs.h"
 #include "Validaciones.h"
@@ -238,9 +239,39 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
+int controller_compararByName(void* thisA, void* thisB)
+{
+    char bufferNameA[50];
+    char bufferNameB[50];
+    int orden;
+
+    employee_getNombre(thisA,bufferNameA);
+    employee_getNombre(thisB,bufferNameB);
+
+    if(strcmp(bufferNameA,bufferNameB)<0)
+    {
+        orden=-1;
+    }
+    else if(strcmp(bufferNameA,bufferNameB)>0)
+    {
+    	orden=1;
+    }
+    else
+    {
+    	orden=0;
+    }
+    return orden;
+}
+
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno=-1;
+    if(pArrayListEmployee!=NULL)
+    {
+        ll_sort(pArrayListEmployee,controller_compararByName,0);
+        retorno=0;
+    }
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -252,7 +283,24 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE*pArchivo;
+    int retorno=-1;
+
+    if(path!=NULL && pArrayListEmployee!=NULL)
+    {
+        pArchivo=fopen(path,"w");
+        if(pArchivo!=NULL && save_employeesAsText(pArchivo,pArrayListEmployee)==0)
+        {
+            fclose(pArchivo);
+            printf("\nGuardado exitoso en Texto");
+            retorno=0;
+        }
+        else
+        {
+            printf("\nNo se pudo abrir el archivo");
+        }
+    }
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
@@ -264,6 +312,91 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE*pArchivo;
+    int retorno=-1;
+
+    if(path != NULL && pArrayListEmployee != NULL)
+    {
+        pArchivo=fopen(path,"wb");
+        if(pArchivo!=NULL && save_employeesAsBin(pArchivo,pArrayListEmployee)==0)
+        {
+            fclose(pArchivo);
+            printf("\nGuardado exitoso en Binario");
+            retorno=0;
+        }
+        else
+        {
+            printf("\nNo se pudo abrir el archivo");
+        }
+    }
+    return retorno;
 }
 
+int save_employeesAsText(FILE* pFile,LinkedList* pArrayListEmployee)
+{
+    int retorno=-1;
+    int i;
+    int len;
+    Employee* empleado;
+    int bufferId;
+    int bufferSueldo;
+    char bufferNombre[50];
+    int bufferHoras;
+
+    if(pFile!=NULL && pArrayListEmployee!= NULL)
+    {
+        fprintf(pFile,"id,nombre,horasTrabajadas,sueldo\n");
+        len=ll_len(pArrayListEmployee);
+        for(i=0;i<len;i++)
+        {
+            empleado=(Employee*)ll_get(pArrayListEmployee,i);
+
+            employee_getNombre(empleado,bufferNombre);
+            employee_getId(empleado,&bufferId);
+            employee_getSueldo(empleado,&bufferSueldo);
+            employee_getHorasTrabajadas(empleado,&bufferHoras);
+            fprintf(pFile,"%d,%s,%d,%d\n",bufferId,bufferNombre,bufferHoras,bufferSueldo);
+            i++;
+        }
+        if(i==len)
+        {
+            retorno=0;
+        }
+    }
+return retorno;
+}
+
+int save_employeesAsBin(FILE* pArchivo,LinkedList* pArrayListEmployee)
+{
+    int retorno=-1;
+    int i;
+    int contEmpleados=0;
+    int len = ll_len(pArrayListEmployee);
+    Employee* empleado;
+
+    if(pArchivo!=NULL && pArrayListEmployee!=NULL)
+    {
+        //retorno=0;
+        for(i=0;i<len;i++)
+        {
+            empleado=ll_get(pArrayListEmployee,i);
+            if(empleado!= NULL)
+            {
+                if(fwrite(empleado,sizeof(Employee),1,pArchivo))
+                {
+                	contEmpleados++;
+                }
+            }
+        }
+        if(i==contEmpleados)
+        {
+            retorno=0;
+        }
+        else
+        {
+        	printf("\nNo se pudieron grabar todos los empleados"
+        			"Total grabados: %d ",contEmpleados);
+        }
+    }
+    return retorno;
+}

@@ -47,6 +47,7 @@ void imprimirMenu(void);
 int main()
 {
     int option;
+    int flagAdd = 0, flagText = 0, flagBin = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
 
     imprimirMenu();
@@ -55,30 +56,45 @@ int main()
         switch(option)
         {
             case 1:
-                if(controller_loadFromText("data.csv",listaEmpleados)==0)
-                {
-                	printf("\nCargado con exito");
-                }
-                else
-                {
-                	printf("\nError al cargar");
-                }
+            	if(flagText==0 && flagBin==0)
+            	{
+            		if(controller_loadFromText("data.csv",listaEmpleados)==0)
+            		{
+            			printf("\nCargado en modo Texto con exito");
+            		}
+            		else
+            		{
+            			printf("\nError al cargar");
+            		}
+            	}
+            	else
+            	{
+            		printf("\nLa lista ya fue cargada");
+            	}
                 break;
 
             case 2:
-                if(controller_loadFromBinary("data.csv",listaEmpleados)==0)
+            	if(flagText==0 && flagBin==0)
                 {
-                	printf("\nCargado con exito");
-                }
+            		if(controller_loadFromBinary("data.bin",listaEmpleados)==0)
+                    {
+                    	printf("\nCargado en modo Binario con exito");
+                    }
+                    else
+                    {
+                    	printf("\nError al cargar");
+                    }
+               	}
                 else
                 {
-                	printf("\nError al cargar");
+                	printf("\nLa lista ya fue cargada");
                 }
                 break;
             case 3:
                 if(controller_addEmployee(listaEmpleados)==0)
                 {
                 	printf("\nEmpleado dado de alta");
+                	flagAdd++;
                 }
                 else
                 {
@@ -101,6 +117,8 @@ int main()
             case 7:
             	controller_sortEmployee(listaEmpleados);
                 break;
+            case 8:
+            	break;
             case 9:
             	break;
             case 10:
