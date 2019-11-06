@@ -239,38 +239,93 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_compararByName(void* thisA, void* thisB)
+int compararPorId(void* thisA, void* thisB)
+{
+    int idA;
+    int idB;
+    int orden=-1;
+
+    employee_getId(thisA,&idA);
+    employee_getId(thisB,&idB);
+
+    /*if(idA<idB)
+    {
+        orden=0;
+    }
+    else */if(idA>idB)
+    {
+    	orden=1;
+    }
+
+    return orden;
+}
+
+int compararPorNombre(void* thisA, void* thisB)
 {
     char bufferNameA[50];
     char bufferNameB[50];
-    int orden;
+    int orden=-1;
 
     employee_getNombre(thisA,bufferNameA);
     employee_getNombre(thisB,bufferNameB);
 
-    if(strcmp(bufferNameA,bufferNameB)<0)
+    /*if(strcmp(bufferNameA,bufferNameB)<0)
     {
-        orden=-1;
+        orden=0;
     }
-    else if(strcmp(bufferNameA,bufferNameB)>0)
+    else */if(strcmp(bufferNameA,bufferNameB)>0)
     {
     	orden=1;
     }
-    else
-    {
-    	orden=0;
-    }
+
     return orden;
 }
 
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno=-1;
+    //Employee* empleadoUno,empleadoDos;
+    int opcion;
+
     if(pArrayListEmployee!=NULL)
     {
-        ll_sort(pArrayListEmployee,controller_compararByName,0);
-        retorno=0;
+    	do
+    	{
+    		printf("\n1.Ordenar ascendente por Id");
+    		printf("\n2.Ordenar descendente por Id");
+    		printf("\n3.Ordenar ascendente por nombre");
+    		printf("\n4.Ordenar descendente por nombre");
+    		printf("\n5.Salir");
+
+    		utn_getInt(&opcion,"\nIngrese una opcion","\nOpcion invalida",1,5,2);
+    		switch(opcion)
+    		{
+    		case 1:
+    			ll_sort(pArrayListEmployee,compararPorId,1);
+    			controller_ListEmployee(pArrayListEmployee);
+    			break;
+    		case 2:
+    			ll_sort(pArrayListEmployee,compararPorId,0);
+    			controller_ListEmployee(pArrayListEmployee);
+    			break;
+    		case 3:
+    			ll_sort(pArrayListEmployee,compararPorNombre,1);
+    			controller_ListEmployee(pArrayListEmployee);
+    			break;
+    		case 4:
+    			ll_sort(pArrayListEmployee,compararPorNombre,0);
+    			controller_ListEmployee(pArrayListEmployee);
+    			break;
+    		case 5:
+    			break;
+    		default:
+    			printf("\nOpcion Invalida");
+    			break;
+    		}
+    	}while(opcion!=5);
+    	retorno=0;
     }
+
     return retorno;
 }
 
@@ -356,7 +411,6 @@ int save_employeesAsText(FILE* pFile,LinkedList* pArrayListEmployee)
             employee_getSueldo(empleado,&bufferSueldo);
             employee_getHorasTrabajadas(empleado,&bufferHoras);
             fprintf(pFile,"%d,%s,%d,%d\n",bufferId,bufferNombre,bufferHoras,bufferSueldo);
-            i++;
         }
         if(i==len)
         {
@@ -376,7 +430,6 @@ int save_employeesAsBin(FILE* pArchivo,LinkedList* pArrayListEmployee)
 
     if(pArchivo!=NULL && pArrayListEmployee!=NULL)
     {
-        //retorno=0;
         for(i=0;i<len;i++)
         {
             empleado=ll_get(pArrayListEmployee,i);

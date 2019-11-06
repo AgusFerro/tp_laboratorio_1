@@ -112,7 +112,7 @@ int employee_getNombre(Employee* this,char* nombre)
 	int retorno = -1;
 	if(this != NULL)
 	{
-	   strncpy(nombre,this->nombre,sizeof(nombre));
+	   strcpy(nombre,this->nombre);
 	   retorno = 0;
 	}
 	return retorno;
@@ -296,7 +296,8 @@ static int isValidId(int id)
 static int isValidSueldo(int sueldo)
 {
     int retorno=-1;
-    if(sueldo>0){
+    if(sueldo>0)
+    {
         retorno=0;
     }
     return retorno;

@@ -74,6 +74,7 @@ int main()
             	}
             	imprimirMenu();
                 break;
+
             case 2:
             	if(flagText==0 && flagBin==0)
                 {
@@ -93,6 +94,7 @@ int main()
                 }
             	imprimirMenu();
                 break;
+
             case 3:
             	if(flagText==1 || flagBin==1)
             	{
@@ -112,6 +114,7 @@ int main()
             	}
             	imprimirMenu();
                 break;
+
             case 4:
             	if(flagText==1 || flagBin==1 || flagAdd>0)
             	{
@@ -130,6 +133,7 @@ int main()
             	}
             	imprimirMenu();
             	break;
+
             case 5:
             	if(flagText==1 || flagBin==1 || flagAdd>0)
             	{
@@ -148,6 +152,7 @@ int main()
             	}
             	imprimirMenu();
             	break;
+
             case 6:
             	if(flagText==1 || flagBin==1)
             	{
@@ -159,6 +164,7 @@ int main()
             	}
             	imprimirMenu();
                 break;
+
             case 7:
             	//no funciona
             	if(flagText==1 || flagBin==1)
@@ -171,8 +177,8 @@ int main()
             	}
             	imprimirMenu();
                 break;
+
             case 8:
-            	//pierdo los id pares (?
             	if(flagText==1 || flagBin==1)
             	{
             		controller_saveAsText("data_prueba.csv",listaEmpleados);
@@ -183,6 +189,7 @@ int main()
             	}
             	imprimirMenu();
             	break;
+
             case 9:
             	if(flagText==1 || flagBin==1)
             	{
@@ -194,6 +201,7 @@ int main()
             	}
             	imprimirMenu();
             	break;
+
             case 10:
             	printf("\nSalir");
             	break;
