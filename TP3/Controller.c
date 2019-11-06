@@ -96,7 +96,6 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
             {
                     retorno=0;
                     ll_add(pArrayListEmployee,empleado);
-                    printf("id %d",empleado->id);
             }
             else
             {
@@ -248,11 +247,7 @@ int compararPorId(void* thisA, void* thisB)
     employee_getId(thisA,&idA);
     employee_getId(thisB,&idB);
 
-    /*if(idA<idB)
-    {
-        orden=0;
-    }
-    else */if(idA>idB)
+    if(idA>idB)
     {
     	orden=1;
     }
@@ -269,11 +264,7 @@ int compararPorNombre(void* thisA, void* thisB)
     employee_getNombre(thisA,bufferNameA);
     employee_getNombre(thisB,bufferNameB);
 
-    /*if(strcmp(bufferNameA,bufferNameB)<0)
-    {
-        orden=0;
-    }
-    else */if(strcmp(bufferNameA,bufferNameB)>0)
+    if(strcmp(bufferNameA,bufferNameB)>0)
     {
     	orden=1;
     }
@@ -284,7 +275,6 @@ int compararPorNombre(void* thisA, void* thisB)
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno=-1;
-    //Employee* empleadoUno,empleadoDos;
     int opcion;
 
     if(pArrayListEmployee!=NULL)
@@ -294,8 +284,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     		printf("\n1.Ordenar ascendente por Id");
     		printf("\n2.Ordenar descendente por Id");
     		printf("\n3.Ordenar ascendente por nombre");
-    		printf("\n4.Ordenar descendente por nombre");
-    		printf("\n5.Salir");
+    		printf("\n4.Salir");
 
     		utn_getInt(&opcion,"\nIngrese una opcion","\nOpcion invalida",1,5,2);
     		switch(opcion)
@@ -313,16 +302,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     			controller_ListEmployee(pArrayListEmployee);
     			break;
     		case 4:
-    			ll_sort(pArrayListEmployee,compararPorNombre,0);
-    			controller_ListEmployee(pArrayListEmployee);
-    			break;
-    		case 5:
     			break;
     		default:
     			printf("\nOpcion Invalida");
     			break;
     		}
-    	}while(opcion!=5);
+    	}while(opcion!=4);
     	retorno=0;
     }
 

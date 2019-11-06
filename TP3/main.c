@@ -166,7 +166,6 @@ int main()
                 break;
 
             case 7:
-            	//no funciona
             	if(flagText==1 || flagBin==1)
             	{
             		controller_sortEmployee(listaEmpleados);
