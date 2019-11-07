@@ -107,10 +107,12 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 
     		if(nodeIndex==0)
     		{
+    			pAuxNew->pNextNode=this->pFirstNode;
     			this->pFirstNode=pAuxNew;
     		}
     		else
     		{
+    			pAuxNew->pNextNode=pAuxPrev->pNextNode;
     			pAuxPrev->pNextNode=pAuxNew;
     		}
     		this->size++;
@@ -145,6 +147,10 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
 int ll_add(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+    if(this!=NULL && addNode(this,this->size,pElement)==0)
+    {
+    	returnAux=0;
+    }
 
     return returnAux;
 }
