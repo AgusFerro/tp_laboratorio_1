@@ -166,6 +166,16 @@ int ll_add(LinkedList* this, void* pElement)
 void* ll_get(LinkedList* this, int index)
 {
     void* returnAux = NULL;
+    Node* pNode = NULL;
+
+    if(this!=NULL && index>=0)
+    {
+    	pNode=getNode(this,index);
+    	if(pNode!=NULL)
+    	{
+    		returnAux=pNode->pElement;
+    	}
+    }
 
     return returnAux;
 }
@@ -183,7 +193,18 @@ void* ll_get(LinkedList* this, int index)
 int ll_set(LinkedList* this, int index,void* pElement)
 {
     int returnAux = -1;
+    int len=this->size;
+    Node* pNode = NULL;
 
+    if(this!=NULL && index>=0 && index<len && pElement !=NULL)
+    {
+    	pNode=getNode(this,index);
+    	if(pNode!=NULL)
+    	{
+    		pNode->pElement=pElement;
+    		returnAux=0;
+    	}
+    }
     return returnAux;
 }
 
