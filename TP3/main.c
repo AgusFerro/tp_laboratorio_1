@@ -21,27 +21,6 @@
     10. Salir
 *****************************************************/
 
-
-/*
-int f1(int *a, int b,int (*foo)(int,int)) {
-	*a = *a * 2;
-	*a = foo(*a,b);
-	return (*a);
-}
-
-int f2(int a, int b) {
-	 a = b*b;
-	 return a;
-}
-
-
-enum colors {lets,find,course};
-int main()
-{
-	printf("%d %d %d",course,lets,find);
-	return 0;
-}
-*/
 void imprimirMenu(void);
 
 int main()

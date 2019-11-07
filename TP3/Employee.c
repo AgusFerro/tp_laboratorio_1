@@ -14,6 +14,9 @@ static int isValidId(int id);
 static int isValidHoras(int horas);
 static int isValidNombre(char* nombre);
 
+/** \brief Crea un empleado
+ * \return this Employee*
+ */
 Employee* employee_new()
 {
 	Employee* this;
@@ -21,6 +24,13 @@ Employee* employee_new()
 	return this;
 }
 
+/** \brief Crea un empleado con parametros
+ * \param id char*
+ * \param nombre char*
+ * \param horasTrabajadas int*
+ * \param sueldo int*
+ * \return this Employee*
+ */
 Employee* employee_newParametros(char* id,char* nombre,char* horasTrabajadas,char* sueldo)
 {
 	Employee* this;
@@ -44,6 +54,10 @@ Employee* employee_newParametros(char* id,char* nombre,char* horasTrabajadas,cha
 	}
 }
 
+/** \brief Elimina un empleado
+ * \param this Employee*
+ * \return 0 todo bien -1 error
+ */
 int employee_delete(Employee* this)
 {
 	int retorno=-1;
@@ -57,6 +71,11 @@ int employee_delete(Employee* this)
 	return retorno;
 }
 
+/** \brief Establece el ID de un empleado
+ * \param this Employee*
+ * \param id int
+ * \return 0 todo bien -1 error
+ */
 int employee_setId(Employee* this,int id)
 {
 	int retorno=-1;
@@ -81,6 +100,12 @@ int employee_setId(Employee* this,int id)
 	}
 	return retorno;
 }
+
+/** \brief Devuelve el ID de un empleado
+ * \param this Employee*
+ * \param id int*
+ * \return 0 todo bien -1 error
+ */
 int employee_getId(Employee* this,int* id)
 {
 	int retorno = -1;
@@ -93,6 +118,11 @@ int employee_getId(Employee* this,int* id)
     return retorno;
 }
 
+/** \brief Establece el nombre de un empleado
+ * \param this Employee*
+ * \param nombre char*
+ * \return 0 todo bien -1 error
+ */
 int employee_setNombre(Employee* this,char* nombre)
 {
 	int retorno = -1;
@@ -107,6 +137,12 @@ int employee_setNombre(Employee* this,char* nombre)
 	}
 	return retorno;
 }
+
+/** \brief Devuelve el nombre de un empleado
+ * \param this Employee*
+ * \param nombre char*
+ * \return 0 todo bien -1 error
+ */
 int employee_getNombre(Employee* this,char* nombre)
 {
 	int retorno = -1;
@@ -118,6 +154,11 @@ int employee_getNombre(Employee* this,char* nombre)
 	return retorno;
 }
 
+/** \brief Establece las horas trabajadas de un empleado
+ * \param this Employee*
+ * \param horasTrabajadas int
+ * \return 0 todo bien -1 error
+ */
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
 	int retorno = -1;
@@ -132,6 +173,12 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 	}
 	return retorno;
 }
+
+/** \brief Devuelve las horas trabajadas de un empleado
+ * \param this Employee*
+ * \param horasTrabajadas int*
+ * \return 0 todo bien -1 error
+ */
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 {
 	int retorno = -1;
@@ -143,6 +190,11 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 	return retorno;
 }
 
+/** \brief Establece el sueldo de un empleado
+ * \param this Employee*
+ * \param sueldo int
+ * \return 0 todo bien -1 error
+ */
 int employee_setSueldo(Employee* this,int sueldo)
 {
 	int retorno = -1;
@@ -157,6 +209,12 @@ int employee_setSueldo(Employee* this,int sueldo)
 	}
 	return retorno;
 }
+
+/** \brief Devuelve el sueldo de un empleado
+ * \param this Employee*
+ * \param sueldo int*
+ * \return 0 todo bien -1 error
+ */
 int employee_getSueldo(Employee* this,int* sueldo)
 {
 	int retorno = -1;
@@ -168,6 +226,10 @@ int employee_getSueldo(Employee* this,int* sueldo)
 	return retorno;
 }
 
+/** \brief Valida los datos de un empleado
+ * \param pEmpleado Employee*
+ * \return 0 todo bien -1 error
+ */
 int employee_validarEmpleado(Employee* pEmpleado)
 {
     int retorno=-1;
@@ -186,6 +248,10 @@ int employee_validarEmpleado(Employee* pEmpleado)
     return retorno;
 }
 
+/** \brief Busca el maximo Id de una lista
+ * \param pArrayListEmployee LinkedList*
+ * \return 0 todo bien -1 error
+ */
 int employee_buscarMaxId(LinkedList* pArrayListEmployee)
 {
     int retorno=-1;
@@ -210,6 +276,11 @@ int employee_buscarMaxId(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
+
+/** \brief Valida un numero entero
+ * \param pBuffer char* cadena a validar
+ * \return 0 todo bien -1 error
+ */
 static int isInt(char *pBuffer)
 {
     int retorno=-1;

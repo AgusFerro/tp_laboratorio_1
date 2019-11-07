@@ -42,7 +42,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Carga los datos de los empleados desde el archivo data.bin (modo binario).
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
@@ -72,7 +72,6 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
 /** \brief Alta de empleados
  *
- * \param path char*
  * \param pArrayListEmployee LinkedList*
  * \return int
  *
@@ -108,7 +107,6 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Modificar datos de empleado
  *
- * \param path char*
  * \param pArrayListEmployee LinkedList*
  * \return int
  *
@@ -155,7 +153,6 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Baja de empleado
  *
- * \param path char*
  * \param pArrayListEmployee LinkedList*
  * \return int
  *
@@ -195,7 +192,6 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Listar empleados
  *
- * \param path char*
  * \param pArrayListEmployee LinkedList*
  * \return int
  *
@@ -231,12 +227,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 }
 
-/** \brief Ordenar empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
+/** \brief Compara dos empleados por ID
+ * \param thisA void*
+ * \param thisA void*
  * \return int
- *
  */
 int compararPorId(void* thisA, void* thisB)
 {
@@ -255,6 +249,11 @@ int compararPorId(void* thisA, void* thisB)
     return orden;
 }
 
+/** \brief Compara dos empleados por nombre
+ * \param thisA void*
+ * \param thisA void*
+ * \return int
+ */
 int compararPorNombre(void* thisA, void* thisB)
 {
     char bufferNameA[50];
@@ -272,6 +271,12 @@ int compararPorNombre(void* thisA, void* thisB)
     return orden;
 }
 
+/** \brief Ordenar empleados
+ *
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno=-1;
@@ -343,7 +348,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
+/** \brief Guarda los datos de los empleados en el archivo data.bin (modo binario).
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
