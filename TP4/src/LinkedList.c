@@ -58,10 +58,17 @@ static Node* getNode(LinkedList* this, int nodeIndex)
 
 	if(this!=NULL && nodeIndex>=0 && nodeIndex<largo)
 	{
-		pNode = this->pFirstNode;
-		for(int i=0;i<nodeIndex;i++)
+		if(nodeIndex==0)					//nuevo despues del commit "TP4 %50"
 		{
-			pNode=pNode->pNextNode;
+			pNode = this->pFirstNode;
+		}
+		else
+		{
+			pNode = this->pFirstNode;
+			for(int i=0;i<nodeIndex;i++)
+			{
+				pNode=pNode->pNextNode;
+			}
 		}
 	}
     return pNode;
@@ -325,7 +332,15 @@ int ll_indexOf(LinkedList* this, void* pElement)
     {
     	for(int i=0;i<len;i++)
     	{
-
+    		pNode=getNode(this,i);
+    		if(pNode!=NULL)
+    		{
+    			if(pNode->pElement==pElement)
+    			{
+    				returnAux=i;
+    				break;
+    			}
+    		}
     	}
     }
 
@@ -343,6 +358,19 @@ int ll_indexOf(LinkedList* this, void* pElement)
 int ll_isEmpty(LinkedList* this)
 {
     int returnAux = -1;
+    int len=ll_len(this);
+
+    if(this!=NULL)
+    {
+    	if(len==0)
+    	{
+    		returnAux=1;
+    	}
+    	else
+    	{
+    		returnAux=0;
+    	}
+    }
 
     return returnAux;
 }
@@ -359,6 +387,15 @@ int ll_isEmpty(LinkedList* this)
 int ll_push(LinkedList* this, int index, void* pElement)
 {
     int returnAux = -1;
+    int len=ll_len(this);
+
+    if(this!=NULL && index>=0 && index<=len)
+    {
+    	if(addNode(this,index,pElement)==0)
+    	{
+    		returnAux=0;
+    	}
+    }
 
     return returnAux;
 }
