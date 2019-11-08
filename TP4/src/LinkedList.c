@@ -193,10 +193,10 @@ void* ll_get(LinkedList* this, int index)
 int ll_set(LinkedList* this, int index,void* pElement)
 {
     int returnAux = -1;
-    int len=this->size;
+    int len=ll_len(this);
     Node* pNode = NULL;
 
-    if(this!=NULL && index>=0 && index<len && pElement !=NULL)
+    if(this!=NULL && index>=0 && index<len)// && pElement!=NULL)
     {
     	pNode=getNode(this,index);
     	if(pNode!=NULL)
@@ -220,6 +220,30 @@ int ll_set(LinkedList* this, int index,void* pElement)
 int ll_remove(LinkedList* this,int index)
 {
     int returnAux = -1;
+    int len=ll_len(this);
+    Node* pNodePrev = NULL;
+    Node* pNode = NULL;
+
+    if(this!=NULL && index>=0 && index<len)
+    {
+    	pNode=getNode(this,index);
+    	if(index==0)
+    	{
+    		this->pFirstNode=pNode->pNextNode;
+    		free(pNode);
+    		this->size--;
+    	}
+    	else
+    	{
+    		pNodePrev=getNode(this,index-1);
+    		pNodePrev->pNextNode=pNode->pNextNode;
+    		free(pNode);
+    		this->size--;
+
+    	}
+    	returnAux=0;
+
+    }
 
     return returnAux;
 }
@@ -235,7 +259,29 @@ int ll_remove(LinkedList* this,int index)
 int ll_clear(LinkedList* this)
 {
     int returnAux = -1;
+    int len=ll_len(this);
 
+    if(this!=NULL)
+    {
+    	if(this->size==0)
+    	{
+    		returnAux=0;
+    	}
+    	else
+    	{
+    		for(int i=0;i<len;i++)
+    		{
+    			ll_remove(this,0); //borra siempre la primera posicion hasta vaciarse
+    		}
+    		returnAux=0;
+
+    		/*for(int i=len-1;i>=0;i--)
+    		{
+    			ll_remove(this,i); // borra desde el final hasta el principio(menos optimo)
+    		}
+    		returnAux=0;*/
+    	}
+    }
     return returnAux;
 }
 
@@ -251,6 +297,13 @@ int ll_deleteLinkedList(LinkedList* this)
 {
     int returnAux = -1;
 
+    if(this!=NULL)
+    {
+    	ll_clear(this);
+    	free(this);
+    	returnAux=0;
+    }
+
     return returnAux;
 }
 
@@ -265,6 +318,16 @@ int ll_deleteLinkedList(LinkedList* this)
 int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+    int len=ll_len(this);
+    Node* pNode = NULL;
+
+    if(this!=NULL)
+    {
+    	for(int i=0;i<len;i++)
+    	{
+
+    	}
+    }
 
     return returnAux;
 }
