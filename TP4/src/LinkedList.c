@@ -412,7 +412,29 @@ int ll_push(LinkedList* this, int index, void* pElement)
 void* ll_pop(LinkedList* this,int index)
 {
     void* returnAux = NULL;
+    int len=ll_len(this);
+    Node* pNodePrev = NULL;
+    Node* pNode = NULL;
 
+    if(this!=NULL && index>=0 && index<len)
+    {
+    	pNode=getNode(this,index);
+    	if(index==0)
+    	{
+    		returnAux=pNode->pElement;
+    		this->pFirstNode=pNode->pNextNode;
+    		free(pNode);
+    		this->size--;
+    	}
+    	else
+    	{
+    		returnAux=pNode->pElement;
+    		pNodePrev=getNode(this,index-1);
+    		pNodePrev->pNextNode=pNode->pNextNode;
+    		free(pNode);
+    		this->size--;
+    	}
+    }
     return returnAux;
 }
 
@@ -429,6 +451,17 @@ int ll_contains(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    if(this!=NULL)
+    {
+    	if(ll_indexOf(this,pElement)==-1)
+   		{
+   			returnAux=0;
+   		}
+    	else
+   		{
+   			returnAux=1;
+   		}
+    }
     return returnAux;
 }
 
