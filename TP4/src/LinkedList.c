@@ -477,6 +477,43 @@ int ll_contains(LinkedList* this, void* pElement)
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
+    int contIgual = 0;
+    int len=ll_len(this),len2=ll_len(this2);
+    void* aux;
+
+    if(this!=NULL && this2!=NULL)
+    {
+    	if(len<len2)
+    	{
+    		returnAux=0;
+    	}
+    	else
+    	{
+    		if(this==this2)
+    		{
+    			returnAux=1;
+    		}
+    		else
+    		{
+    			for(int i=0;i<len2;i++)
+    			{
+    				aux=ll_get(this2,i);
+    				if(ll_contains(this,aux)==1)
+    				{
+    					contIgual++;
+    				}
+    			}
+    			if(contIgual==len2)
+    			{
+    				returnAux=1;
+    			}
+    			else
+    			{
+    				returnAux=0;
+    			}
+    		}
+    	}
+    }
 
     return returnAux;
 }
@@ -494,6 +531,25 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
     LinkedList* cloneArray = NULL;
+    Node* pNode = NULL;
+    int i,j;
+    int len=ll_len(this);
+
+    if(this!=NULL && from>=0 && to>from && len>=to)
+    {
+    	cloneArray=malloc(sizeof(LinkedList));
+    	if(cloneArray!=NULL)
+    	{
+    		for(i=from,j=0;i<to;i++,j++)
+    		{
+    			pNode=getNode(this,i);
+    			if(pNode!=NULL)
+    			{
+    				addNode(cloneArray,j,pNode->pElement);
+    			}
+    		}
+    	}
+    }
 
     return cloneArray;
 }
@@ -509,6 +565,12 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 LinkedList* ll_clone(LinkedList* this)
 {
     LinkedList* cloneArray = NULL;
+    int len=ll_len(this);
+
+    if(this!=NULL)
+    {
+    	cloneArray=ll_subList(this,0,len);
+    }
 
     return cloneArray;
 }
