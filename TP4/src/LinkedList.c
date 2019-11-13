@@ -477,7 +477,7 @@ int ll_contains(LinkedList* this, void* pElement)
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
-    int contIgual = 0;
+    int i;
     int len=ll_len(this),len2=ll_len(this2);
     void* aux;
 
@@ -495,15 +495,16 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
     		}
     		else
     		{
-    			for(int i=0;i<len2;i++)
+    			for(i=0;i<len2;i++)
     			{
     				aux=ll_get(this2,i);
-    				if(ll_contains(this,aux)==1)
+    				if(ll_contains(this,aux)==0)
     				{
-    					contIgual++;
+    					i--;
+    					break;
     				}
     			}
-    			if(contIgual==len2)
+    			if(i==len2)
     			{
     				returnAux=1;
     			}
@@ -577,7 +578,7 @@ LinkedList* ll_clone(LinkedList* this)
 
 
 /** \brief Ordena los elementos de la lista utilizando la funcion criterio recibida como parametro
- * \param pList LinkedList* Puntero a la lista
+ * \param this LinkedList* Puntero a la lista
  * \param pFunc (*pFunc) Puntero a la funcion criterio
  * \param order int  [1] Indica orden ascendente - [0] Indica orden descendente
  * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
@@ -586,8 +587,45 @@ LinkedList* ll_clone(LinkedList* this)
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
     int returnAux =-1;
+    int len=ll_len(this);
+    int flag;
+    void* aux;
+    Node* pNode;
+    Node* pNextNode;
 
+    if(this!=NULL && (order==1 || order==0) && pFunc!=NULL && len>0)
+    {
+        do
+        {
+                flag=0;
+                pNode=this->pFirstNode;
+                if(pNode!=NULL)
+                {
+                pNextNode=pNode->pNextNode;
+                    for(int i=0;i<(len-1);i++)
+                    {
+                        if((pFunc(pNode->pElement,pNextNode->pElement)==1 && order) ||
+                            (pFunc(pNode->pElement,pNextNode->pElement)==-1 && !order))
+                        {
+                            aux=pNode->pElement;
+                            pNode->pElement=pNextNode->pElement;
+                            pNextNode->pElement=aux;
+                            flag=1;
+                        }
+                        if(pNextNode->pNextNode!=NULL)
+                        {
+                            pNode=pNextNode;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        pNextNode=pNode->pNextNode;
+                    }
+                }
+            }while(flag==1);
+            returnAux=0;
+        }
     return returnAux;
-
 }
 
