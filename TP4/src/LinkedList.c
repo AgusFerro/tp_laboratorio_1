@@ -538,7 +538,8 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 
     if(this!=NULL && from>=0 && to>from && len>=to)
     {
-    	cloneArray=malloc(sizeof(LinkedList));
+    	//cloneArray=malloc(sizeof(LinkedList));
+    	cloneArray=ll_newLinkedList();
     	if(cloneArray!=NULL)
     	{
     		for(i=from,j=0;i<to;i++,j++)
