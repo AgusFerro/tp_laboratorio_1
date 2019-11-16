@@ -629,7 +629,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     return returnAux;
 }
 
-
+/*
 int ll_map(LinkedList* this, int (*pFunc)(void*))
 {
 	int returnAux=-1;
@@ -683,7 +683,7 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*), int orden)
 	return returnAux;
 }
 
-/*
+
 int em_calcularSueldo(void* p)
 {
 	int returnAux=-1;
